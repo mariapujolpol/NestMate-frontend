@@ -13,7 +13,7 @@ import EditProfile from "./pages/EditProfile";
 import CreateListing from "./pages/CreateListing";
 import EditListing from "./pages/EditListing";
 import Search from "./pages/Search";
-import Favourites from "./pages/Favorites";
+import Favorites from "./pages/Favorites";
 import Inbox from "./pages/Inbox";
 import Conversation from "./pages/Conversations";
 import ListingDetails from "./pages/ListingDetails";
