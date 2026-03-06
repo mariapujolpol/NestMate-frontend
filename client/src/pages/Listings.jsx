@@ -3,6 +3,9 @@ import { getAllListings } from "../services/listings.service";
 import Spinner from "../components/Spinner";
 import ErrorMessage from "../components/ErrorMessage";
 import ListingCard from "../components/ListingCard";
+import { Link } from "react-router-dom";
+
+
 
 function Listings() {
   const [listings, setListings] = useState([]);
@@ -45,6 +48,8 @@ function Listings() {
 
       <h1>All Listings</h1>
 
+
+
       {listings.map((listing) => (
 
         <div key={listing._id}>
@@ -57,7 +62,9 @@ function Listings() {
 
           <button onClick = {() => handleAddFavorite(listing._id)}>Add to Favorites</button>
 
-          <img src={listing.photoUrl} alt={listing.title} width="250"/>
+          <Link to={`/listings/${listing._id}`}>
+          <img src={listing.photoUrl} alt={listing.title} width="250" />
+        </Link>
 
         </div>
 

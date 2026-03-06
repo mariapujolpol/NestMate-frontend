@@ -1,11 +1,12 @@
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../../context/auth.context";
+import { AuthContext } from "../context/auth.context";
 import service from "../services/api";
+import { myProfile } from "../services/users.service";
 
 function Login() {
 
-  const { setIsLoggedIn, setLoggedUserId, setLoggedUserRole } = useContext(AuthContext);
+  const { storeToken, authenticateUser } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -23,19 +24,13 @@ function Login() {
 
     try {
 
-     const { data } = await service.post("/auth/login", body); //se envia al backend para verificar si el usuario existe y la contraseña es correcta
+     const { data } = await service.post("/auth/login", body);
 
-     const token = data.authToken;
+storeToken(data.authToken);
 
-      localStorage.setItem("authToken", token);
+await authenticateUser();
 
-      setIsLoggedIn(true);
-
-      setLoggedUserId(data.payload._id);
-      setLoggedUserRole(data.payload.role);
-
-      navigate("/listings");
-
+navigate("/profile");
     } catch (error) {
 
       console.log(error);

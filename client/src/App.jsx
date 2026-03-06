@@ -40,7 +40,17 @@ function App() {
               <Profile />
             </ProtectedRoute>
           }
+
         />
+        <Route path="/users/:userId" //para ver otros profiles
+        element={
+        <ProtectedRoute>
+          <Profile />
+          </ProtectedRoute>
+
+        } />
+        
+
 
         <Route
           path="/profile/edit"

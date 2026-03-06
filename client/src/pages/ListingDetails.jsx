@@ -1,10 +1,12 @@
 import React from "react";  
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getListingsById, addToFavorites } from "../services/listings.service";
+import { getListingById, addToFavorites } from "../services/listings.service";
 import Spinner from "../components/Spinner";
 import ErrorMessage from "../components/ErrorMessage";
 import ListingCard from "../components/ListingCard";
+import service from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 
 function ListingDetails() {
@@ -12,11 +14,12 @@ function ListingDetails() {
   const [listing, setListing] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchListing = async () => {
       try {
-        const response = await getListingsById(listingId);
+        const response = await getListingById(listingId);
         setListing(response.data);
       } catch (error) {
         setErrorMessage("Failed to load listing details.");
@@ -38,6 +41,23 @@ function ListingDetails() {
     }
   }
 
+const handleContactOwner = async () => {
+
+  try {
+
+    await service.post("/conversations", {
+      listingId: listing._id
+    });
+
+    navigate("/conversations");
+
+  } catch (error) {
+    console.log(error);
+    alert("Failed to contact owner.");
+  }
+
+};
+
   if (isLoading) return <Spinner />;
   if (errorMessage) return <ErrorMessage message={errorMessage} />;
 
@@ -55,6 +75,7 @@ return (
     <img src={listing.photoUrl} alt={listing.title} />
 
     <button onClick={handleAddFavorite}>Add to Favorites</button>
+    <button onClick={handleContactOwner}>Contact</button>
 
     <p>Owner: {listing.owner?.name}</p>
 
