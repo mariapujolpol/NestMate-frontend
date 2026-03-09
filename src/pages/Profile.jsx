@@ -36,61 +36,36 @@ function Profile() {
   }, [userId]);
   const handleEditProfile = () => {
     navigate("/profile/edit");
-  }
+  };
 
   const handleCreateListing = () => {
     navigate("/listings/create");
-  }
-
- 
+  };
 
   if (loading) return <p>Loading...</p>;
 
   if (!profile) return <p>Profile not found.</p>;
 
- return (
-  
-  <div>
-
-    <h1>Profile</h1>
-
-    <p>{profile.name}</p>
-    <p>{profile.email}</p>
-    <p>{profile.city}</p>
-    <p>{profile.age}</p>
-    <p>{profile.description}</p>
-
-    {isOwnProfile ? (
-      <>
-        <button onClick={handleEditProfile}>Edit Profile</button>
-        <button onClick={handleCreateListing}>Create Listing</button>
-      </>
-    ) : (
-      <button>Send Message</button>
-    )}
-
-  </div>
-
-);
-}
-
-/* return (
-
+  return (
     <div>
+      <h1>Profile</h1>
 
-      <h1>{User.name}</h1>
+      <p>{profile.name}</p>
+      <p>{profile.email}</p>
+      <p>{profile.city}</p>
+      <p>{profile.age}</p>
+      <p>{profile.description}</p>
 
-      <img src={User.photoUrl} alt="Profile" />
-      <p>City: {User.city}</p>
-      <p>Age: {User.age}</p>
-      <p>Cleanless: {User.cleanliness}</p>
-      <p>Noise level: {User.noiseLevel}</p>
-      <p>Pet friendly: {User.pets ? "Yes" : "No"}</p>
-      <p>Smoking : {User.smoker ? "Yes" : "No"}</p>
-
-      <p>About me: {User.description}</p>
-      <p>Favorites: {User.favorites}</p>
-      </div>
-  )*/
+      {isOwnProfile ? (
+        <>
+          <button onClick={handleEditProfile}>Edit Profile</button>
+          <button onClick={handleCreateListing}>Create Listing</button>
+        </>
+      ) : (
+        <button>Send Message</button>
+      )}
+    </div>
+  );
+}
 
 export default Profile;
