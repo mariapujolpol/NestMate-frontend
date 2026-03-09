@@ -1,7 +1,7 @@
 import api from "./api";
 
-const getFavourites = () => api.get("/users/favourites");
-const addFavourite = (listingId) => api.patch(`/users/favourites/${listingId}`);
-const removeFavourite = (listingId) => api.delete(`/users/favourites/${listingId}`);
+const getFavorites = () => api.get(`/favorites`);
+const addFavorite = (listingId) => api.patch(`/favorites/${listingId}`);
+const removeFavorite = (listingId) => api.delete(`/favorites/${listingId}`);
 
-export { getFavourites, addFavourite, removeFavourite };
+export { getFavorites, addFavorite, removeFavorite };

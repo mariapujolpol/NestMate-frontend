@@ -7,6 +7,8 @@ import ErrorMessage from "../components/ErrorMessage";
 import ListingCard from "../components/ListingCard";
 import service from "../services/api";
 import { useNavigate } from "react-router-dom";
+import { addFavorite } from "../services/favorites.service";
+import  Listings  from "./Listings";
 
 
 function ListingDetails() {
@@ -31,9 +33,9 @@ function ListingDetails() {
     fetchListing();
   }, [listingId]);
 
-  const handleAddFavorite = async () => {
+  const handleAddFavorite = async (listingId) => {
     try {
-      await addToFavorites(listingId);
+      await addFavorite(listingId);
       alert("Listing added to favorites!");
     } catch (error) {
       console.log(error);
@@ -74,7 +76,12 @@ return (
 
     <img src={listing.photoUrl} alt={listing.title} />
 
-    <button onClick={handleAddFavorite}>Add to Favorites</button>
+   
+        <button onClick={() => handleAddFavorite(listing._id)}>Add to Favorites</button>
+    
+  
+
+    
     <button onClick={handleContactOwner}>Contact</button>
 
     <p>Owner: {listing.owner?.name}</p>

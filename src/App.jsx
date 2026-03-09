@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import Navbar from "./components/navbar";
+import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 import Home from "./pages/Home";
@@ -89,7 +89,7 @@ function App() {
         />
 
         <Route
-          path="/favourites"
+          path="/favorites"
           element={
             <ProtectedRoute>
               <Favorites />

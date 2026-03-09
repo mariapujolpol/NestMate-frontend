@@ -13,7 +13,7 @@ function Navbar() {
       {isLoggedIn ? (
         <>
           <Link to="/profile">Profile</Link>
-          <Link to="/favourites">Favourites</Link>
+          <Link to="/favorites">Favorites</Link>
           <Link to="/inbox">Inbox</Link>
           <Link to="/listings/create">Create Listing</Link>
           <button onClick={logOutUser}>Logout</button>

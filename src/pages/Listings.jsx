@@ -4,6 +4,7 @@ import Spinner from "../components/Spinner";
 import ErrorMessage from "../components/ErrorMessage";
 import ListingCard from "../components/ListingCard";
 import { Link } from "react-router-dom";
+import { addFavorite } from "../services/favorites.service";
 
 
 
@@ -30,7 +31,7 @@ function Listings() {
  
   const handleAddFavorite = async (listingId) => {
     try {
-      await addToFavorites(listingId);
+      await addFavorite(listingId);
       alert("Listing added to favorites!");
     } catch (error) {
       console.log(error);
