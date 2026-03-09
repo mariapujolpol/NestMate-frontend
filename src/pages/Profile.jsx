@@ -49,7 +49,7 @@ function Profile() {
   return (
     <div>
       <h1>Profile</h1>
-
+      <img src={profile.photoUrl} alt={profile.name} />
       <p>{profile.name}</p>
       <p>{profile.email}</p>
       <p>{profile.city}</p>

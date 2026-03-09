@@ -167,7 +167,15 @@ function EditProfile() {
         />
       </label>
       <br />
-
+      <label>Photo URL:</label>
+      <input
+        type="text"
+        name="photoUrl"
+        placeholder="Photo URL"
+        value={formData.photoUrl}
+        onChange={handleChange}
+      />  
+      <label></label>
       <label>
         Description:
         <textarea
