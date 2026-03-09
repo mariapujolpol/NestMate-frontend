@@ -14,10 +14,10 @@ import CreateListing from "./pages/CreateListing";
 import EditListing from "./pages/EditListing";
 import Search from "./pages/Search";
 import Favorites from "./pages/Favorites";
-import Inbox from "./pages/Inbox";
-import Conversation from "./pages/Conversations";
-import ListingDetails from "./pages/ListingDetails";
+
 import Conversations from "./pages/Conversations";
+import ListingDetails from "./pages/ListingDetails";
+import ConversationsDetails from "./pages/ConversationsDetails";
 
 function App() {
   return (
@@ -98,10 +98,10 @@ function App() {
         />
 
         <Route
-          path="/inbox"
+          path="/conversations"
           element={
             <ProtectedRoute>
-              <Inbox />
+              <Conversations />
             </ProtectedRoute>
           }
         />
@@ -110,7 +110,7 @@ function App() {
           path="/conversations/:conversationId"
           element={
             <ProtectedRoute>
-              <Conversations />
+              <ConversationsDetails />
             </ProtectedRoute>
           }
         />

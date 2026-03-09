@@ -14,7 +14,7 @@ function Navbar() {
         <>
           <Link to="/profile">Profile</Link>
           <Link to="/favorites">Favorites</Link>
-          <Link to="/inbox">Inbox</Link>
+          <Link to="/conversations">Inbox</Link>
           <Link to="/listings/create">Create Listing</Link>
           <button onClick={logOutUser}>Logout</button>
         </>
