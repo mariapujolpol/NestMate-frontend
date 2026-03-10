@@ -5,7 +5,7 @@ import ErrorMessage from "../components/ErrorMessage";
 import ListingCard from "../components/ListingCard";
 import { Link } from "react-router-dom";
 import { addFavorite } from "../services/favorites.service";
-import "../css/MyListings.css";
+import "../css/MyListingsTemporal.css";
 
 function Listings() {
   const [listings, setListings] = useState([]);
