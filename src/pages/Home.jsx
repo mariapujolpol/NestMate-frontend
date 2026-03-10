@@ -2,15 +2,6 @@ import "../css/HomePage.css";
 import { Link } from "react-router-dom";
 import heroImage from "../assets/hero-image.jpg";
 
-<<<<<<< HEAD
-function Home() {
-
-
-
-
-  
-  return <div>Home</div>;
-=======
 function HomePage() {
   const featuredRooms = [
     {
@@ -186,7 +177,6 @@ function HomePage() {
       </section>
     </div>
   );
->>>>>>> dev
 }
 
 export default HomePage;
