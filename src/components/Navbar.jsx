@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AuthContext } from "../context/auth.context";
-import "../Navbar.css";
+import "../css/Navbar.css";
 
 function Navbar() {
   const { isLoggedIn, logOutUser } = useContext(AuthContext);
@@ -18,9 +18,7 @@ function Navbar() {
 
         {/* CENTER LINKS */}
         <div className="navbar-links">
-          <Link to="/listings">Browse Rooms</Link>
-          <Link to="/how-it-works">How It Works</Link>
-          <Link to="/about">About</Link>
+          <Link to="/listings">Browse all listings</Link>
         </div>
 
         {/* RIGHT SIDE */}
@@ -32,7 +30,7 @@ function Navbar() {
               <Link to="/conversations">Inbox</Link>
               <Link to="/profile">Profile</Link>
               <Link to="/listings/create" className="primary-btn">
-                Post Room
+                Create Listing
               </Link>
               <button onClick={logOutUser} className="logout-btn">
                 Logout

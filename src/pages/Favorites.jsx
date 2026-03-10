@@ -3,7 +3,7 @@ import { removeFavorite, getFavorites } from "../services/favorites.service";
 import ListingCard from "../components/ListingCard";
 import Spinner from "../components/Spinner";
 import ErrorMessage from "../components/ErrorMessage";
-import "../Favorites.css";
+import "../css/Favorites.css";
 
 function Favorites() {
   const [favorites, setFavorites] = useState([]);

@@ -1,5 +1,6 @@
-import "../HomePage.css";
+import "../css/HomePage.css";
 import { Link } from "react-router-dom";
+import heroImage from "../assets/hero-image.jpg";
 
 function HomePage() {
   const featuredRooms = [
@@ -40,11 +41,15 @@ function HomePage() {
 
   return (
     <div className="homepage">
-      {/* HERO */}
-      <section className="hero">
-        <div className="hero-overlay"></div>
+    {/* HERO */}
+    <section
+  className="hero"
+  style={{ backgroundImage: `url(${heroImage})` }}
+>
+  <div className="hero-overlay"></div>
 
-        <div className="hero-content">
+  <div className="hero-content">
+    <div className="hero-text">
           <span className="hero-badge">Find your perfect flatmate 🏠</span>
 
           <h1>
@@ -70,6 +75,7 @@ function HomePage() {
             <span>• 2,400+ listings</span>
             <span>• 98% match rate</span>
             <span>• Free to use</span>
+          </div>
           </div>
         </div>
       </section>
@@ -120,7 +126,7 @@ function HomePage() {
             Join thousands of happy flatmates who found their perfect match on
             NestMate.
           </p>
-          <Link to="/signup" className="cta-button">
+          <Link to="/register" className="cta-button">
             Get Started →
           </Link>
         </div>

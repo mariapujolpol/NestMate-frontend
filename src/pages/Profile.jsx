@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { myProfile, getProfile } from "../services/users.service";
-import "../Profile.css";
+import { getMyListings } from "../services/listings.service";
+import "../css/Profile.css";
 
 function Profile() {
   const { userId } = useParams();
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isOwnProfile, setIsOwnProfile] = useState(false);
+  const [myListingsCount, setMyListingsCount] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,10 +21,13 @@ function Profile() {
           const response = await getProfile(userId);
           setProfile(response.data);
           setIsOwnProfile(false);
+          setMyListingsCount(0);
         } else {
           const response = await myProfile();
           setProfile(response.data);
           setIsOwnProfile(true);
+          const listingsResponse = await getMyListings();
+          setMyListingsCount(listingsResponse.data.length);
         }
       } catch (error) {
         console.log("Error loading profile:", error);
@@ -42,12 +47,21 @@ function Profile() {
     navigate("/listings/create");
   };
 
+  const handleMyListings = () => {
+    navigate("/my-listings");
+  };
+
   if (loading) return <p className="profile-loading">Loading...</p>;
   if (!profile) return <p className="profile-loading">Profile not found.</p>;
 
   return (
     <div className="profile-page">
       <div className="profile-card">
+        {isOwnProfile && (
+          <button className="profile-edit-top" onClick={handleEditProfile}>
+            ⚙️ Edit
+          </button>
+        )}
         <div className="profile-header">
           <img
             src={profile.photoUrl || "https://via.placeholder.com/300x300"}
@@ -58,6 +72,12 @@ function Profile() {
           <div className="profile-header-info">
             <h1>{profile.name}</h1>
             <p className="profile-city">📍 {profile.city || "No city added"}</p>
+
+            {isOwnProfile && (
+              <p className="profile-listings-count">
+                🏠 Listings: {myListingsCount}
+              </p>
+            )}
 
             <div className="profile-badges">
               {profile.age && (
@@ -95,7 +115,8 @@ function Profile() {
             <h2>Profile details</h2>
             <div className="profile-details-grid">
               <p>
-                <strong>Email:</strong> {isOwnProfile ? profile.email : "Private"}
+                <strong>Email:</strong>{" "}
+                {isOwnProfile ? profile.email : "Private"}
               </p>
               <p>
                 <strong>City:</strong> {profile.city || "N/A"}
@@ -121,11 +142,18 @@ function Profile() {
           <div className="profile-actions">
             {isOwnProfile ? (
               <>
-                <button className="profile-btn primary" onClick={handleEditProfile}>
-                  Edit Profile
-                </button>
-                <button className="profile-btn secondary" onClick={handleCreateListing}>
+                <button
+                  className="profile-btn secondary"
+                  onClick={handleCreateListing}
+                >
                   Create Listing
+                </button>
+
+                <button
+                  className="profile-btn secondary"
+                  onClick={handleMyListings}
+                >
+                  My Listings
                 </button>
               </>
             ) : (

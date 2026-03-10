@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "../ListingCard.css";
+import "../css/ListingCard.css";
 
 function ListingCard({
   listing,

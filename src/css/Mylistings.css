@@ -1,0 +1,64 @@
+.my-listings-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.my-listings-page h2 {
+  margin-bottom: 1.5rem;
+}
+
+.my-listings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.my-listing-card {
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 16px;
+  overflow: hidden;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.my-listing-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 1rem;
+}
+
+.my-listing-card h3 {
+  margin-bottom: 0.5rem;
+}
+
+.my-listing-card p {
+  margin: 0.3rem 0;
+}
+
+.my-listing-actions {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.my-listing-actions a,
+.my-listing-actions button {
+  border: none;
+  background-color: #f2f2f2;
+  padding: 0.65rem 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  text-decoration: none;
+  color: #222;
+  font-size: 0.95rem;
+}
+
+.my-listing-actions button:hover,
+.my-listing-actions a:hover {
+  background-color: #e7e7e7;
+}

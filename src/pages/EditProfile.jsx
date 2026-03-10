@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { myProfile, updateProfile } from "../services/users.service";
 import Spinner from "../components/Spinner";
 import ErrorMessage from "../components/ErrorMessage";
-import "../EditProfile.css";
+import "../css/EditProfile.css";
 
 function EditProfile() {
   const navigate = useNavigate();

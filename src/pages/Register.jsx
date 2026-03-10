@@ -1,6 +1,7 @@
 import service from "../services/api";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import "../css/Signup.css";
 
 function Signup() {
 
@@ -9,31 +10,30 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState(null);
-
-  const handleEmailChange = (e) => setEmail(e.target.value);
-  const handleNameChange = (e) => setName(e.target.value);
-  const handlePasswordChange = (e) => setPassword(e.target.value);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSignup = async (e) => {
     e.preventDefault();
 
+    setErrorMessage("");
+
     if (!name || !email || !password) {
-      setErrorMessage("All fields are required (email, password, name)");
+      setErrorMessage("All fields are required.");
       return;
     }
 
+    setIsSubmitting(true);
+
     const body = {
-      email,
+      email: email.trim(),
       name,
       password
     };
 
     try {
 
-      const response = await service.post("/auth/signup", body);
-
-      console.log("user registered", response);
+      await service.post("/auth/signup", body);
 
       navigate("/login");
 
@@ -41,57 +41,82 @@ function Signup() {
 
       console.log(error);
 
-      if (error.response && error.response.status === 400) {
+      if (error.response?.status === 400) {
         setErrorMessage(error.response.data.errorMessage);
       } else {
         setErrorMessage("Something went wrong. Please try again.");
       }
 
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
   return (
-    <div>
+    <div className="signup-page">
 
-      <h1>Signup Form</h1>
+      <div className="signup-card">
 
-      <form onSubmit={handleSignup}>
+        <h1>Create Account</h1>
 
-        <label>Email:</label>
-        <input
-          type="email"
-          name="email"
-          value={email}
-          onChange={handleEmailChange}
-        />
+        <p className="signup-subtitle">
+          Join NestMate and find your perfect flatmate.
+        </p>
 
-        <br />
+        <form onSubmit={handleSignup} className="signup-form">
 
-        <label>Name:</label>
-        <input
-          type="text"
-          name="name"
-          value={name}
-          onChange={handleNameChange}
-        />
+          <div className="signup-form-group">
+            <label>Email</label>
+            <input
+              type="email"
+              name="email"
+              placeholder="your@email.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
 
-        <br />
+          <div className="signup-form-group">
+            <label>Name</label>
+            <input
+              type="text"
+              name="name"
+              placeholder="Your name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
+          </div>
 
-        <label>Password:</label>
-        <input
-          type="password"
-          name="password"
-          value={password}
-          onChange={handlePasswordChange}
-        />
+          <div className="signup-form-group">
+            <label>Password</label>
+            <input
+              type="password"
+              name="password"
+              placeholder="Create a password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
 
-        <br />
+          <button
+            type="submit"
+            className="signup-button"
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Creating account..." : "Create Account"}
+          </button>
 
-        <button type="submit">Signup</button>
+          {errorMessage && (
+            <p className="signup-error">{errorMessage}</p>
+          )}
 
-        {errorMessage && <p>{errorMessage}</p>}
+        </form>
 
-      </form>
+        <p className="signup-footer-text">
+          Already have an account? <Link to="/login">Login</Link>
+        </p>
+
+      </div>
 
     </div>
   );

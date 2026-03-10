@@ -1,30 +1,22 @@
 import { Link } from "react-router-dom";
-import "../Footer.css";
+import "../css/Footer.css";
 
 function Footer() {
   return (
     <footer className="footer">
-
       <div className="footer-container">
-
-        {/* LEFT */}
         <div className="footer-logo">
-          <span className="footer-icon">N</span>
-          <span className="footer-text">NestMate</span>
+          <div className="footer-icon">N</div>
+          <span className="footer-text">nestmate</span>
         </div>
 
-        {/* RIGHT */}
+        <p className="footer-copy">© 2026 nestmate. All rights reserved.</p>
+
         <div className="footer-links">
-          <Link to="/about">About</Link>
-          <Link to="/contact">Contact</Link>
+          <a href="#">About</a>
+          <a href="#">Contact</a>
         </div>
-
       </div>
-
-      <p className="footer-copy">
-        © {new Date().getFullYear()} NestMate. All rights reserved.
-      </p>
-
     </footer>
   );
 }

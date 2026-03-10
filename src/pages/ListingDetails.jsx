@@ -6,7 +6,7 @@ import { startConversation } from "../services/conversations.service";
 import { AuthContext } from "../context/auth.context";
 import Spinner from "../components/Spinner";
 import ErrorMessage from "../components/ErrorMessage";
-import "../ListingDetails.css";
+import "../css/ListingDetails.css";
 
 function ListingDetails() {
   const { listingId } = useParams();
@@ -146,6 +146,7 @@ function ListingDetails() {
 
             <button
               className="listing-details-btn secondary"
+              
               onClick={handleContactOwner}
             >
               Contact Owner
