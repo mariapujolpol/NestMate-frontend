@@ -1,0 +1,42 @@
+.favorites-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem 5rem;
+}
+
+.favorites-page h1 {
+  font-size: 4rem;
+  margin-bottom: 2.5rem;
+  color: #18322d;
+}
+
+.favorites-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.favorites-empty {
+  font-size: 1.1rem;
+  color: #6f847d;
+}
+
+@media (max-width: 1100px) {
+  .favorites-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 700px) {
+  .favorites-page {
+    padding: 2rem 1rem 4rem;
+  }
+
+  .favorites-page h1 {
+    font-size: 2.5rem;
+  }
+
+  .favorites-grid {
+    grid-template-columns: 1fr;
+  }
+}

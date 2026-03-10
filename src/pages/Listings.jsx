@@ -5,13 +5,13 @@ import ErrorMessage from "../components/ErrorMessage";
 import ListingCard from "../components/ListingCard";
 import { Link } from "react-router-dom";
 import { addFavorite } from "../services/favorites.service";
-
-
+import "../css/Listings.css";
 
 function Listings() {
   const [listings, setListings] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
+  const [favoriteMessage, setFavoriteMessage] = useState(null);
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -28,11 +28,15 @@ function Listings() {
     fetchListings();
   }, []);
 
- 
   const handleAddFavorite = async (listingId) => {
     try {
       await addFavorite(listingId);
-      alert("Listing added to favorites!");
+
+      setFavoriteMessage(listingId);
+
+      setTimeout(() => {
+        setFavoriteMessage(null);
+      }, 2500);
     } catch (error) {
       console.log(error);
       alert("Failed to add listing to favorites.");
@@ -42,35 +46,27 @@ function Listings() {
   if (isLoading) return <Spinner />;
   if (errorMessage) return <ErrorMessage message={errorMessage} />;
 
- 
   return (
-
-    <div>
-
+    <div className="listings-page">
       <h1>All Listings</h1>
 
+      <div className="listings-grid">
+        {listings.map((listing) => {
+          return (
+            <div key={listing._id}>
+              <ListingCard
+                listing={listing}
+                onFavoriteClick={handleAddFavorite}
+                favoriteIcon="♡"
+              />
 
-
-      {listings.map((listing) => (
-
-        <div key={listing._id}>
-
-          <h3>{listing.title}</h3>
-
-          <p>{listing.city}</p>
-
-          <p>Price: ${listing.price}</p>
-
-          <button onClick = {() => handleAddFavorite(listing._id)}>Add to Favorites</button>
-
-          <Link to={`/listings/${listing._id}`}>
-          <img src={listing.photoUrl} alt={listing.title} width="250" />
-        </Link>
-
-        </div>
-
-      ))}
-
+              {favoriteMessage === listing._id && (
+                <p className="favorite-success">Added to favorites ❤️</p>
+              )}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

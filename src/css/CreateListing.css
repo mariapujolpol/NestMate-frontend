@@ -1,0 +1,150 @@
+.create-listing-page {
+  width: 100%;
+  flex: 1;
+  min-height: 100%;
+  background: #f6f7fb;
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.create-listing-card {
+  width: 100%;
+  max-width: 720px;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.create-listing-card h1 {
+  margin: 0 0 8px;
+  font-size: 2rem;
+  color: #222;
+}
+
+.create-listing-subtitle {
+  margin: 0 0 28px;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.create-listing-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.form-group label {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #d8dce5;
+  border-radius: 12px;
+  font-size: 1rem;
+  background: #fff;
+  color: #222;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  box-sizing: border-box;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #7c5cff;
+  box-shadow: 0 0 0 4px rgba(124, 92, 255, 0.12);
+}
+
+.form-group textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.checkbox-group {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 4px;
+}
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  color: #333;
+}
+
+.checkbox-item input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #7c5cff;
+}
+
+.create-listing-button {
+  margin-top: 10px;
+  border: none;
+  background: #7c5cff;
+  color: white;
+  padding: 14px 18px;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.15s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 8px 20px rgba(124, 92, 255, 0.25);
+}
+
+.create-listing-button:hover {
+  opacity: 0.95;
+  transform: translateY(-1px);
+}
+
+.create-listing-button:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .create-listing-page {
+    padding: 24px 14px;
+  }
+
+  .create-listing-card {
+    padding: 22px;
+    border-radius: 16px;
+  }
+
+  .create-listing-card h1 {
+    font-size: 1.7rem;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .checkbox-group {
+    flex-direction: column;
+    gap: 12px;
+  }
+}

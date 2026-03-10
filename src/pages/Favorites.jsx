@@ -1,60 +1,65 @@
-import React from "react";  
-import { removeFavorite, getFavorites } from "../services/favorites.service";
 import { useEffect, useState } from "react";
+import { removeFavorite, getFavorites } from "../services/favorites.service";
+import ListingCard from "../components/ListingCard";
+import Spinner from "../components/Spinner";
+import ErrorMessage from "../components/ErrorMessage";
+import "../css/Favorites.css";
 
 function Favorites() {
-
   const [favorites, setFavorites] = useState([]);
-  const [deleteFavorites, setDeleteFavorites] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const fetchFavorites = async () => {
     try {
       const response = await getFavorites();
       setFavorites(response.data);
-      setIsLoading(false);
     } catch (error) {
-      console.log("Failed to load favorites.");
+      console.log(error);
+      setErrorMessage("Failed to load favorites.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleRemoveFavorite = async (listingId) => {
     try {
       await removeFavorite(listingId);
-      fetchFavorites();
+      setFavorites((prev) => prev.filter((listing) => listing._id !== listingId));
     } catch (error) {
-      console.log("Failed to remove favorite.");
+      console.log(error);
       alert("Failed to remove favorite.");
     }
   };
-
 
   useEffect(() => {
     fetchFavorites();
   }, []);
 
-  if (isLoading) return <p>Loading...</p>;
-  if (favorites.length === 0) return <p>No favorites yet.</p>;
+  if (isLoading) return <Spinner />;
+  if (errorMessage) return <ErrorMessage message={errorMessage} />;
 
   return (
-    <div>
+    <div className="favorites-page">
       <h1>Favorites</h1>
 
-      {favorites.map((listing) => (
-        <div key={listing._id || listing.id}>
-          <img src={listing.photoUrl} alt={listing.title} />
-          <h3>{listing.title}</h3>
-          <p>{listing.city}</p>
-          <p>{listing.price}</p>
-
-          <button onClick={() => handleRemoveFavorite(listing._id)}>
-            Remove from Favorites
-          </button>
+      {favorites.length === 0 ? (
+        <p className="favorites-empty">No favorites yet.</p>
+      ) : (
+        <div className="favorites-grid">
+          {favorites.map((listing) => (
+            <ListingCard
+              key={listing._id}
+              listing={listing}
+              onFavoriteClick={handleRemoveFavorite}
+              favoriteIcon="✕"
+              extraLabel="Saved listing"
+            />
+          ))}
         </div>
-      ))}
+      )}
     </div>
   );
-
 }
 
 export default Favorites;

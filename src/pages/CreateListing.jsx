@@ -1,131 +1,185 @@
-import React from "react";
-import { useState , useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createListing } from "../services/listings.service";
-import { useParams, Link } from "react-router-dom";
+import "../css/CreateListing.css";
 
 function CreateListing() {
 
   const navigate = useNavigate();
-    const [formData, setFormData] = useState({
-      title: "",
-      city: "",
-      price: "",
-      description: "",
-      cleanliness: "",
-      noiseLevel: "",
-      smokerAllowed: false,
-      petsAllowed: false,
-      photoUrl: "",
-    });
 
-    const handleChange = (e) => {
-      const { name, value, type, checked } = e.target;
-      setFormData((prevData) => ({
-        ...prevData,
-        [name]: type === "checkbox" ? checked : value,
-      }));
-    };
-    
-    const handleSubmit = async (e) => { 
-      e.preventDefault();
-      try {
-        await createListing(formData);
-        navigate("/listings");
-      } catch (error) {
-        console.log("Error creating listing:", error);
-      }
-    };
+  const [formData, setFormData] = useState({
+    title: "",
+    city: "",
+    price: "",
+    description: "",
+    cleanliness: "",
+    noiseLevel: "",
+    smokerAllowed: false,
+    petsAllowed: false,
+    photoUrl: "",
+  });
 
-  return <div>
-    <h1>Create Listing</h1>
-    <form onSubmit={handleSubmit}>
-      <label>Title:</label>
-      <input
-        type="text"
-        name="title"
-        placeholder="Title"
-        value={formData.title}
-        onChange={handleChange}
-      />
-      <label>City:</label>
-      <input
-        type="text"
-        name="city"
-        placeholder="City"
-        value={formData.city}
-        onChange={handleChange}
-      />
-      <label>Price:</label>
-      <input
-        type="number"
-        name="price"
-        placeholder="Price"
-        value={formData.price}
-        onChange={handleChange}
-      />
-      <label>Description:</label>
-      <textarea
-        name="description"
-        placeholder="Description"
-        value={formData.description}
-        onChange={handleChange}
-      />
-      <label>Cleanliness:</label>
-      <select
-        name="cleanliness"
-        value={formData.cleanliness}
-        onChange={handleChange}
-      >
-        <option value="">Select Cleanliness</option>
-        <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-      </select>
-      <label>Noise Level:</label>
-      <select
-        name="noiseLevel"
-        value={formData.noiseLevel}
-        onChange={handleChange}
-      >
-        <option value="">Select Noise Level</option>
-       <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-      </select>
-      <label>Photo URL:</label>
-      <input
-        type="text"
-        name="photoUrl"
-        placeholder="Photo URL"
-        value={formData.photoUrl}
-        onChange={handleChange}
-      />  
-      <label>
-        <input
-          type="checkbox"
-          name="smokerAllowed"
-          checked={formData.smokerAllowed}
-          onChange={handleChange}
-        />
-        Smoker Allowed
-      </label>
-      <label>
-        <input
-          type="checkbox"
-          name="petsAllowed"
-          checked={formData.petsAllowed}
-          onChange={handleChange}
-        />
-        Pets Allowed
-      </label>
-      <button type="submit">Create Listing</button>
-    </form>
-  </div>;
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+
+      const listingData = {
+        ...formData,
+        price: Number(formData.price),
+        cleanliness: Number(formData.cleanliness),
+        noiseLevel: Number(formData.noiseLevel),
+      };
+
+      await createListing(listingData);
+
+      navigate("/listings");
+
+    } catch (error) {
+      console.log("Error creating listing:", error);
+    }
+  };
+
+  return (
+    <div className="create-listing-page">
+      <div className="create-listing-card">
+        <h1>Create Listing</h1>
+        <p className="create-listing-subtitle">
+          Fill in the details to publish your room or apartment.
+        </p>
+
+        <form onSubmit={handleSubmit} className="create-listing-form">
+          <div className="form-group">
+            <label>Title</label>
+            <input
+              type="text"
+              name="title"
+              placeholder="Cozy room in central Berlin"
+              value={formData.title}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="form-row">
+            <div className="form-group">
+              <label>City</label>
+              <input
+                type="text"
+                name="city"
+                placeholder="Berlin"
+                value={formData.city}
+                onChange={handleChange}
+              />
+            </div>
+
+            <div className="form-group">
+              <label>Price</label>
+              <input
+                type="number"
+                name="price"
+                placeholder="850"
+                value={formData.price}
+                onChange={handleChange}
+              />
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label>Description</label>
+            <textarea
+              name="description"
+              placeholder="Describe the place, room, neighborhood and ideal flatmate..."
+              value={formData.description}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="form-row">
+            <div className="form-group">
+              <label>Cleanliness</label>
+              <select
+                name="cleanliness"
+                value={formData.cleanliness}
+                onChange={handleChange}
+              >
+                <option value="">Select cleanliness</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+
+            <div className="form-group">
+              <label>Noise Level</label>
+              <select
+                name="noiseLevel"
+                value={formData.noiseLevel}
+                onChange={handleChange}
+              >
+                <option value="">Select noise level</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+              </select>
+            </div>
+          </div>
+
+          <div className="form-group">
+            <label>Photo URL</label>
+            <input
+              type="text"
+              name="photoUrl"
+              placeholder="https://example.com/photo.jpg"
+              value={formData.photoUrl}
+              onChange={handleChange}
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Preferences</label>
+            <div className="checkbox-group">
+              <label className="checkbox-item">
+                <input
+                  type="checkbox"
+                  name="smokerAllowed"
+                  checked={formData.smokerAllowed}
+                  onChange={handleChange}
+                />
+                Smoker Allowed
+              </label>
+
+              <label className="checkbox-item">
+                <input
+                  type="checkbox"
+                  name="petsAllowed"
+                  checked={formData.petsAllowed}
+                  onChange={handleChange}
+                />
+                Pets Allowed
+              </label>
+            </div>
+          </div>
+
+          <button type="submit" className="create-listing-button">
+            Create Listing
+          </button>
+        </form>
+      </div>
+    </div>
+  );
 }
 
 export default CreateListing;

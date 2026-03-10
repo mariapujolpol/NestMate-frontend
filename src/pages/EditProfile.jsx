@@ -1,12 +1,13 @@
-import React from "react";
-import { useState , useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { myProfile, uploadProfilePicture, updateProfile } from "../services/users.service";
-import { useParams, Link } from "react-router-dom";
+import { myProfile, updateProfile } from "../services/users.service";
+import Spinner from "../components/Spinner";
+import ErrorMessage from "../components/ErrorMessage";
+import "../css/EditProfile.css";
 
 function EditProfile() {
-
   const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -17,7 +18,7 @@ function EditProfile() {
     smoker: false,
     pets: false,
     description: "",
-    photoUrl : "",
+    photoUrl: "",
   });
 
   const [loading, setLoading] = useState(true);
@@ -29,6 +30,7 @@ function EditProfile() {
       try {
         const response = await myProfile();
         const user = response.data;
+
         setFormData({
           name: user.name || "",
           email: user.email || "",
@@ -54,6 +56,7 @@ function EditProfile() {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
+
     setFormData((prevData) => ({
       ...prevData,
       [name]: type === "checkbox" ? checked : value,
@@ -76,137 +79,168 @@ function EditProfile() {
     }
   };
 
-  return <div>
-    <h1>Edit Profile</h1>
+  if (loading) return <Spinner />;
+  if (error && !formData.name) return <ErrorMessage message={error} />;
 
-    <form onSubmit={handleSubmit}>
-      <label>
-        Name:
-        <input
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
+  return (
+    <div className="edit-profile-page">
+      <div className="edit-profile-card">
+        <div className="edit-profile-header">
+          <div>
+            <h1>Edit Profile</h1>
+            <p>Update your personal info and flatmate preferences.</p>
+          </div>
 
-      <label>
-        City:
-        <input
-          type="text"
-          name="city"
-          value={formData.city}
-          onChange={handleChange}
-        />
-      </label>
-      <br /> 
-      <label>
-        Age:
-        <input
-          type="number"
-          name="age"
-          value={formData.age}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
+          <img
+            src={formData.photoUrl || "https://via.placeholder.com/220x220"}
+            alt={formData.name || "Profile preview"}
+            className="edit-profile-preview"
+          />
+        </div>
 
-      <label>
-        Cleanliness:
-        <select
-          name="cleanliness"
-          value={formData.cleanliness}
-          onChange={handleChange}
-        >
-          <option value="">Select</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
-      </label>
-      <br />
+        <form className="edit-profile-form" onSubmit={handleSubmit}>
+          <div className="edit-profile-grid">
+            <div className="form-group">
+              <label>Name</label>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+              />
+            </div>
 
-      <label>
-        Noise Level:
-        <select
-          name="noiseLevel"
-          value={formData.noiseLevel}
-          onChange={handleChange}
-        >
-          <option value="">Select</option>
-          <option value="1">1</option>
-          <option value="2">2</option>
-          <option value="3">3</option>
-          <option value="4">4</option>
-          <option value="5">5</option>
-        </select>
-      </label>
-      <br />
+            <div className="form-group">
+              <label>Email</label>
+              <input
+                type="email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                disabled
+              />
+            </div>
 
-      <label>
-        Smoker:
-        <input
-          type="checkbox"
-          name="smoker"
-          checked={formData.smoker}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
+            <div className="form-group">
+              <label>City</label>
+              <input
+                type="text"
+                name="city"
+                value={formData.city}
+                onChange={handleChange}
+              />
+            </div>
 
-      <label>
-        Pets:
-        <input
-          type="checkbox"
-          name="pets"
-          checked={formData.pets}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
-      <label>Photo URL:</label>
-      <input
-        type="text"
-        name="photoUrl"
-        placeholder="Photo URL"
-        value={formData.photoUrl}
-        onChange={handleChange}
-      />  
-      <label></label>
-      <label>
-        Description:
-        <textarea
-          name="description"
-          value={formData.description}
-          onChange={handleChange}
-        />
-      </label>
-      <br />
+            <div className="form-group">
+              <label>Age</label>
+              <input
+                type="number"
+                name="age"
+                value={formData.age}
+                onChange={handleChange}
+              />
+            </div>
 
-      {error && <p style={{ color: "red" }}>{error}</p>}
+            <div className="form-group">
+              <label>Cleanliness</label>
+              <select
+                name="cleanliness"
+                value={formData.cleanliness}
+                onChange={handleChange}
+              >
+                <option value="">Select</option>
+                <option value="1">1 - Very relaxed</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5 - Very clean</option>
+              </select>
+            </div>
 
-      <button type="submit" disabled={isSubmitting}>
-        {isSubmitting ? "Updating..." : "Save Changes"}
-      </button>
-    </form>
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    </div>;
-  
+            <div className="form-group">
+              <label>Noise level</label>
+              <select
+                name="noiseLevel"
+                value={formData.noiseLevel}
+                onChange={handleChange}
+              >
+                <option value="">Select</option>
+                <option value="1">1 - Very quiet</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5 - Very social/loud</option>
+              </select>
+            </div>
+
+            <div className="form-group full-width">
+              <label>Photo URL</label>
+              <input
+                type="text"
+                name="photoUrl"
+                placeholder="Paste your photo URL"
+                value={formData.photoUrl}
+                onChange={handleChange}
+              />
+            </div>
+
+            <div className="form-group full-width">
+              <label>About you</label>
+              <textarea
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+                rows="5"
+                placeholder="Tell others a bit about yourself, your habits, and what kind of flatmate you are."
+              />
+            </div>
+          </div>
+
+          <div className="checkbox-row">
+            <label className="checkbox-pill">
+              <input
+                type="checkbox"
+                name="smoker"
+                checked={formData.smoker}
+                onChange={handleChange}
+              />
+              <span>Smoker</span>
+            </label>
+
+            <label className="checkbox-pill">
+              <input
+                type="checkbox"
+                name="pets"
+                checked={formData.pets}
+                onChange={handleChange}
+              />
+              <span>Pets</span>
+            </label>
+          </div>
+
+          {error && <p className="form-error">{error}</p>}
+
+          <div className="form-actions">
+            <button
+              type="button"
+              className="edit-profile-btn secondary"
+              onClick={() => navigate("/profile")}
+            >
+              Cancel
+            </button>
+
+            <button
+              type="submit"
+              className="edit-profile-btn primary"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Updating..." : "Save Changes"}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 }
 
 export default EditProfile;

@@ -1,0 +1,93 @@
+.navbar {
+  width: 100%;
+  background-color: #f8f6f2;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.navbar-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* LOGO */
+
+.navbar-logo {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  text-decoration: none;
+}
+
+.logo-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background: linear-gradient(135deg,#e78059,#dca74d);
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: bold;
+}
+
+.logo-text {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #18322d;
+}
+
+/* CENTER LINKS */
+
+.navbar-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  color: #355b54;
+  font-weight: 500;
+}
+
+/* RIGHT SIDE */
+
+.navbar-auth {
+  display: flex;
+  align-items: center;
+  gap: 1.4rem;
+}
+
+.navbar-auth a {
+  text-decoration: none;
+  color: #355b54;
+  font-weight: 500;
+}
+
+/* PRIMARY BUTTON */
+
+.primary-btn {
+  padding: .55rem 1.2rem;
+  border-radius: 12px;
+
+  background: linear-gradient(135deg,#e78059,#dca74d);
+  color: white !important;
+}
+
+/* LOGOUT */
+
+.logout-btn {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #355b54;
+}

@@ -1,14 +1,15 @@
-import React from "react";
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { myProfile, getProfile } from "../services/users.service";
-import { useNavigate } from "react-router-dom";
+import { getMyListings } from "../services/listings.service";
+import "../css/Profile.css";
 
 function Profile() {
   const { userId } = useParams();
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
   const [isOwnProfile, setIsOwnProfile] = useState(false);
+  const [myListingsCount, setMyListingsCount] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,10 +21,13 @@ function Profile() {
           const response = await getProfile(userId);
           setProfile(response.data);
           setIsOwnProfile(false);
+          setMyListingsCount(0);
         } else {
           const response = await myProfile();
           setProfile(response.data);
           setIsOwnProfile(true);
+          const listingsResponse = await getMyListings();
+          setMyListingsCount(listingsResponse.data.length);
         }
       } catch (error) {
         console.log("Error loading profile:", error);
@@ -34,6 +38,7 @@ function Profile() {
 
     fetchProfile();
   }, [userId]);
+
   const handleEditProfile = () => {
     navigate("/profile/edit");
   };
@@ -42,28 +47,121 @@ function Profile() {
     navigate("/listings/create");
   };
 
-  if (loading) return <p>Loading...</p>;
+  const handleMyListings = () => {
+    navigate("/my-listings");
+  };
 
-  if (!profile) return <p>Profile not found.</p>;
+  if (loading) return <p className="profile-loading">Loading...</p>;
+  if (!profile) return <p className="profile-loading">Profile not found.</p>;
 
   return (
-    <div>
-      <h1>Profile</h1>
-      <img src={profile.photoUrl} alt={profile.name} />
-      <p>{profile.name}</p>
-      <p>{profile.email}</p>
-      <p>{profile.city}</p>
-      <p>{profile.age}</p>
-      <p>{profile.description}</p>
+    <div className="profile-page">
+      <div className="profile-card">
+        {isOwnProfile && (
+          <button className="profile-edit-top" onClick={handleEditProfile}>
+            ⚙️ Edit
+          </button>
+        )}
+        <div className="profile-header">
+          <img
+            src={profile.photoUrl || "https://via.placeholder.com/300x300"}
+            alt={profile.name}
+            className="profile-avatar"
+          />
 
-      {isOwnProfile ? (
-        <>
-          <button onClick={handleEditProfile}>Edit Profile</button>
-          <button onClick={handleCreateListing}>Create Listing</button>
-        </>
-      ) : (
-        <button>Send Message</button>
-      )}
+          <div className="profile-header-info">
+            <h1>{profile.name}</h1>
+            <p className="profile-city">📍 {profile.city || "No city added"}</p>
+
+            {isOwnProfile && (
+              <p className="profile-listings-count">
+                🏠 Listings: {myListingsCount}
+              </p>
+            )}
+
+            <div className="profile-badges">
+              {profile.age && (
+                <span className="profile-badge">{profile.age} years old</span>
+              )}
+
+              {profile.pets === true && (
+                <span className="profile-badge">🐶 Pet-friendly</span>
+              )}
+
+              {profile.smoker === true ? (
+                <span className="profile-badge">🚬 Smoker</span>
+              ) : (
+                <span className="profile-badge">🚭 Non-smoker</span>
+              )}
+
+              {profile.cleanliness >= 4 && (
+                <span className="profile-badge">🧼 Very clean</span>
+              )}
+
+              {profile.noiseLevel <= 2 && (
+                <span className="profile-badge">🔇 Quiet</span>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div className="profile-content">
+          <div className="profile-section">
+            <h2>About</h2>
+            <p>{profile.description || "No description added yet."}</p>
+          </div>
+
+          <div className="profile-section">
+            <h2>Profile details</h2>
+            <div className="profile-details-grid">
+              <p>
+                <strong>Email:</strong>{" "}
+                {isOwnProfile ? profile.email : "Private"}
+              </p>
+              <p>
+                <strong>City:</strong> {profile.city || "N/A"}
+              </p>
+              <p>
+                <strong>Age:</strong> {profile.age || "N/A"}
+              </p>
+              <p>
+                <strong>Cleanliness:</strong> {profile.cleanliness ?? "N/A"}
+              </p>
+              <p>
+                <strong>Noise level:</strong> {profile.noiseLevel ?? "N/A"}
+              </p>
+              <p>
+                <strong>Pets:</strong> {profile.pets ? "Yes" : "No"}
+              </p>
+              <p>
+                <strong>Smoker:</strong> {profile.smoker ? "Yes" : "No"}
+              </p>
+            </div>
+          </div>
+
+          <div className="profile-actions">
+            {isOwnProfile ? (
+              <>
+                <button
+                  className="profile-btn secondary"
+                  onClick={handleCreateListing}
+                >
+                  Create Listing
+                </button>
+
+                <button
+                  className="profile-btn secondary"
+                  onClick={handleMyListings}
+                >
+                  My Listings
+                </button>
+              </>
+            ) : (
+              <button className="profile-btn primary">Send Message</button>
+            )}
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
