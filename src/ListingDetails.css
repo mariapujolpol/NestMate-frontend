@@ -1,0 +1,165 @@
+.listing-details-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2rem 5rem;
+}
+
+.listing-details-card {
+  background-color: #fffdf9;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
+}
+
+.listing-details-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+}
+
+.listing-details-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.listing-details-tags {
+  position: absolute;
+  left: 24px;
+  bottom: 24px;
+  display: flex;
+  gap: 0.8rem;
+  flex-wrap: wrap;
+}
+
+.listing-details-tag {
+  background: rgba(255, 255, 255, 0.95);
+  color: #18322d;
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.listing-details-content {
+  padding: 2rem;
+}
+
+.listing-details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.listing-details-header h1 {
+  margin: 0 0 0.7rem;
+  font-size: 3rem;
+  line-height: 1.1;
+  color: #18322d;
+}
+
+.listing-details-city {
+  margin: 0;
+  color: #6f847d;
+  font-size: 1.2rem;
+}
+
+.listing-details-price {
+  margin: 0;
+  color: #e67a52;
+  font-size: 2.4rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.listing-details-meta {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem 2rem;
+  margin-bottom: 2rem;
+  color: #355b54;
+}
+
+.listing-details-meta p {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.listing-details-actions {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2.2rem;
+}
+
+.listing-details-btn {
+  border: none;
+  border-radius: 14px;
+  padding: 0.95rem 1.4rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.listing-details-btn.primary {
+  background: linear-gradient(135deg, #e78059, #dca74d);
+  color: white;
+}
+
+.listing-details-btn.secondary {
+  background: #edf3ef;
+  color: #18322d;
+}
+
+.listing-details-description h2 {
+  margin: 0 0 1rem;
+  font-size: 1.6rem;
+  color: #18322d;
+}
+
+.listing-details-description p {
+  margin: 0;
+  color: #5b746e;
+  line-height: 1.8;
+  font-size: 1.05rem;
+}
+
+@media (max-width: 768px) {
+  .listing-details-page {
+    padding: 2rem 1rem 4rem;
+  }
+
+  .listing-details-image-wrapper {
+    height: 320px;
+  }
+
+  .listing-details-header {
+    flex-direction: column;
+  }
+
+  .listing-details-header h1 {
+    font-size: 2.2rem;
+  }
+
+  .listing-details-price {
+    font-size: 2rem;
+  }
+
+  .listing-details-meta {
+    grid-template-columns: 1fr;
+  }
+
+  .listing-details-actions {
+    flex-direction: column;
+  }
+}
+
+.favorite-success {
+  margin-top: 10px;
+  color: #3f816f;
+  font-weight: 500;
+  font-size: 0.95rem;
+}

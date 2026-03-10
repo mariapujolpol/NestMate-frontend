@@ -1,0 +1,131 @@
+.listing-card {
+  background-color: #fffdf9;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.listing-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.08);
+}
+
+.listing-card-link {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+/* IMAGE */
+
+.listing-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+}
+
+.listing-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* FAVORITE BUTTON */
+
+.favorite-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+
+  width: 38px;
+  height: 38px;
+
+  border: none;
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(4px);
+
+  font-size: 1.1rem;
+
+  color: #18322d;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.favorite-btn:hover {
+  transform: scale(1.1);
+}
+/* TAGS */
+
+.listing-tags {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  display: flex;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+}
+
+.listing-tag {
+  background-color: rgba(255, 255, 255, 0.95);
+  color: #18322d;
+  padding: 0.5rem 0.95rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+/* INFO */
+
+.listing-info {
+  padding: 1.4rem 1.4rem 1.6rem;
+}
+
+.listing-title {
+  margin: 0 0 0.8rem;
+  font-size: 2rem;
+  line-height: 1.2;
+  font-weight: 700;
+  color: #18322d;
+}
+
+.listing-city {
+  margin: 0 0 1.6rem;
+  color: #6f847d;
+  font-size: 1.15rem;
+}
+
+.listing-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.listing-price {
+  margin: 0;
+  color: #e67a52;
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.listing-extra {
+  margin: 0;
+  color: #6f847d;
+  font-size: 1.05rem;
+}
+
+.listing-tag.smoking {
+  background: rgba(255,255,255,0.95);
+}
+
+.listing-tag.no-smoking {
+  background: rgba(255,255,255,0.95);
+}

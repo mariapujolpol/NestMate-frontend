@@ -1,0 +1,385 @@
+.homepage {
+  background-color: #f8f6f2;
+  color: #18322d;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* HERO */
+.hero {
+  position: relative;
+  min-height: 92vh;
+  display: flex;
+  align-items: center;
+  padding: 0 6rem;
+  background-image: url("https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1800&q=80");
+  background-size: cover;
+  background-position: center;
+}
+
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    90deg,
+    rgba(248, 246, 242, 0.9) 0%,
+    rgba(248, 246, 242, 0.75) 35%,
+    rgba(248, 246, 242, 0.15) 100%
+  );
+}
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  max-width: 620px;
+}
+
+.hero-badge {
+  display: inline-block;
+  background-color: #f8e6db;
+  color: #e67a52;
+  padding: 0.7rem 1rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+
+.hero h1 {
+  font-size: 5rem;
+  line-height: 1;
+  margin: 0 0 1.5rem;
+  font-weight: 800;
+}
+
+.hero h1 span {
+  color: #e67a52;
+}
+
+.hero p {
+  font-size: 1.3rem;
+  line-height: 1.7;
+  color: #5b746e;
+  margin-bottom: 2rem;
+}
+
+.hero-search {
+  display: flex;
+  background-color: white;
+  border-radius: 18px;
+  padding: 0.5rem;
+  max-width: 560px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  margin-bottom: 1.5rem;
+}
+
+.hero-search input {
+  flex: 1;
+  border: none;
+  outline: none;
+  padding: 1rem 1.2rem;
+  font-size: 1rem;
+  border-radius: 14px;
+}
+
+.hero-search button {
+  border: none;
+  background: linear-gradient(135deg, #e78059, #dca74d);
+  color: white;
+  padding: 1rem 1.8rem;
+  border-radius: 14px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.hero-stats {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  color: #6f847d;
+  font-size: 1rem;
+}
+
+/* SHARED */
+.section-label {
+  color: #e67a52;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+/* HOW IT WORKS */
+.how-it-works {
+  text-align: center;
+  padding: 6rem 2rem;
+  background-color: #fffdf9;
+}
+
+.how-it-works h2 {
+  font-size: 3.5rem;
+  margin: 0 0 3rem;
+}
+
+.steps-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.step-card {
+  padding: 1rem;
+}
+
+.step-icon {
+  width: 74px;
+  height: 74px;
+  margin: 0 auto 1.5rem;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: white;
+  background: linear-gradient(135deg, #e78059, #dca74d);
+}
+
+.step-number {
+  color: #6f847d;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-size: 0.9rem;
+}
+
+.step-card h3 {
+  font-size: 2rem;
+  margin: 0.8rem 0 1rem;
+}
+
+.step-card p:last-child {
+  color: #5b746e;
+  line-height: 1.7;
+  font-size: 1.05rem;
+}
+
+/* CTA */
+.cta-section {
+  padding: 3rem 2rem 6rem;
+  background-color: #fffdf9;
+}
+
+.cta-box {
+  max-width: 1200px;
+  margin: 0 auto;
+  background: linear-gradient(135deg, #3f816f, #5b9a84);
+  border-radius: 28px;
+  text-align: center;
+  padding: 5rem 2rem;
+  color: white;
+}
+
+.cta-box h2 {
+  font-size: 3.5rem;
+  margin-bottom: 1rem;
+}
+
+.cta-box p {
+  font-size: 1.3rem;
+  max-width: 680px;
+  margin: 0 auto 2rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.cta-button {
+  display: inline-block;
+  text-decoration: none;
+  background: linear-gradient(135deg, #e78059, #dca74d);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 14px;
+  font-weight: 700;
+}
+
+/* FEATURED */
+.featured-rooms {
+  padding: 6rem 2rem;
+  text-align: center;
+  background-color: #f8f6f2;
+}
+
+.featured-rooms h2 {
+  font-size: 4rem;
+  margin: 0.5rem 0 1rem;
+}
+
+.featured-subtitle {
+  max-width: 700px;
+  margin: 0 auto 4rem;
+  color: #5b746e;
+  font-size: 1.3rem;
+  line-height: 1.7;
+}
+
+.rooms-grid {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  text-align: left;
+}
+
+.room-card {
+  background-color: #fffdf9;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+}
+
+.room-image-wrapper {
+  position: relative;
+}
+
+.room-image {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  display: block;
+}
+
+.fav-btn {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.95);
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.room-tags {
+  position: absolute;
+  left: 16px;
+  bottom: 16px;
+  display: flex;
+  gap: 0.7rem;
+  flex-wrap: wrap;
+}
+
+.room-tag {
+  background-color: rgba(255, 255, 255, 0.95);
+  color: #18322d;
+  padding: 0.45rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+}
+
+.room-info {
+  padding: 1.4rem;
+}
+
+.room-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.room-title-row h3 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.room-rating {
+  white-space: nowrap;
+  color: #18322d;
+  font-weight: 600;
+}
+
+.room-city {
+  color: #6f847d;
+  margin: 0.9rem 0 1.3rem;
+  font-size: 1.05rem;
+}
+
+.room-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.room-price {
+  color: #e67a52;
+  font-size: 2rem;
+  font-weight: 800;
+}
+
+.room-flatmates {
+  color: #6f847d;
+  font-size: 1rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1100px) {
+  .hero {
+    padding: 0 3rem;
+  }
+
+  .hero h1 {
+    font-size: 4rem;
+  }
+
+  .steps-grid,
+  .rooms-grid {
+    grid-template-columns: 1fr;
+    max-width: 700px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    min-height: auto;
+    padding: 5rem 1.5rem;
+  }
+
+  .hero h1 {
+    font-size: 3rem;
+  }
+
+  .hero p,
+  .featured-subtitle,
+  .cta-box p {
+    font-size: 1.05rem;
+  }
+
+  .hero-search {
+    flex-direction: column;
+  }
+
+  .hero-search button {
+    width: 100%;
+  }
+
+  .how-it-works h2,
+  .cta-box h2,
+  .featured-rooms h2 {
+    font-size: 2.4rem;
+  }
+
+  .room-price {
+    font-size: 1.6rem;
+  }
+
+  .room-bottom,
+  .room-title-row,
+  .hero-stats {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

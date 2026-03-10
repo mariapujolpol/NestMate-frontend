@@ -1,0 +1,151 @@
+.profile-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 3rem 2rem 5rem;
+}
+
+.profile-card {
+  background-color: #fffdf9;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
+  padding: 2rem;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  margin-bottom: 2.5rem;
+}
+
+.profile-avatar {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 24px;
+  flex-shrink: 0;
+}
+
+.profile-header-info h1 {
+  margin: 0 0 0.8rem;
+  font-size: 3rem;
+  line-height: 1.1;
+  color: #18322d;
+}
+
+.profile-city {
+  margin: 0 0 1.2rem;
+  color: #6f847d;
+  font-size: 1.15rem;
+}
+
+.profile-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.profile-badge {
+  background: #f4eee7;
+  color: #18322d;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.profile-content {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.profile-section h2 {
+  margin: 0 0 1rem;
+  font-size: 1.5rem;
+  color: #18322d;
+}
+
+.profile-section p {
+  margin: 0;
+  color: #5b746e;
+  line-height: 1.8;
+  font-size: 1.05rem;
+}
+
+.profile-details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem 2rem;
+}
+
+.profile-details-grid p {
+  margin: 0;
+  color: #355b54;
+}
+
+.profile-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.profile-btn {
+  border: none;
+  border-radius: 14px;
+  padding: 0.95rem 1.4rem;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.profile-btn.primary {
+  background: linear-gradient(135deg, #e78059, #dca74d);
+  color: white;
+}
+
+.profile-btn.secondary {
+  background: #edf3ef;
+  color: #18322d;
+}
+
+.profile-loading {
+  text-align: center;
+  margin-top: 4rem;
+  color: #5b746e;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .profile-page {
+    padding: 2rem 1rem 4rem;
+  }
+
+  .profile-card {
+    padding: 1.5rem;
+  }
+
+  .profile-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .profile-avatar {
+    width: 100%;
+    max-width: 280px;
+    height: 280px;
+  }
+
+  .profile-header-info h1 {
+    font-size: 2.2rem;
+  }
+
+  .profile-details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-actions {
+    flex-direction: column;
+  }
+}

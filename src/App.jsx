@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Footer from "./components/Footer";
 
 import Home from "./pages/Home";
 import Listings from "./pages/Listings";
@@ -22,8 +23,9 @@ import ConversationsDetails from "./pages/ConversationsDetails";
 function App() {
   return (
     <>
+    <div className="app-container"></div>
       <Navbar />
-
+     <main className="main-content"></main>
       <Routes>
         {/* Public */}
         <Route path="/" element={<Home />} />
@@ -115,6 +117,7 @@ function App() {
           }
         />
       </Routes>
+      <Footer />
     </>
   );
 }

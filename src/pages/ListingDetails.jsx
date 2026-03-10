@@ -1,24 +1,22 @@
-import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
-import { getListingById, addToFavorites } from "../services/listings.service";
-import Spinner from "../components/Spinner";
-import ErrorMessage from "../components/ErrorMessage";
-import ListingCard from "../components/ListingCard"; //no se usa?
-import service from "../services/api";
-import { useNavigate } from "react-router-dom";
+import { getListingById } from "../services/listings.service";
 import { addFavorite } from "../services/favorites.service";
-import Listings from "./Listings";
 import { startConversation } from "../services/conversations.service";
 import { AuthContext } from "../context/auth.context";
+import Spinner from "../components/Spinner";
+import ErrorMessage from "../components/ErrorMessage";
+import "../ListingDetails.css";
 
 function ListingDetails() {
   const { listingId } = useParams();
-  const [listing, setListing] = useState(null);
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const [listing, setListing] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
-  const navigate = useNavigate();
+  const [favoriteMessage, setFavoriteMessage] = useState("");
 
   useEffect(() => {
     const fetchListing = async () => {
@@ -35,10 +33,14 @@ function ListingDetails() {
     fetchListing();
   }, [listingId]);
 
-  const handleAddFavorite = async (listingId) => {
+  const handleAddFavorite = async () => {
     try {
-      await addFavorite(listingId);
-      alert("Listing added to favorites!");
+      await addFavorite(listing._id);
+      setFavoriteMessage("Added to favorites ❤️");
+
+      setTimeout(() => {
+        setFavoriteMessage("");
+      }, 2500);
     } catch (error) {
       console.log(error);
       alert("Failed to add listing to favorites.");
@@ -54,13 +56,7 @@ function ListingDetails() {
 
       const ownerId = listing.owner._id;
 
-     /* if (ownerId.toString() === user._id.toString()) {
-        alert("You cannot message your own listing.");
-        return;
-      }*/
-
       const response = await startConversation(listing._id, ownerId);
-
       navigate(`/conversations/${response.data._id}`);
     } catch (error) {
       console.log("Error starting conversation:", error);
@@ -70,29 +66,98 @@ function ListingDetails() {
 
   if (isLoading) return <Spinner />;
   if (errorMessage) return <ErrorMessage message={errorMessage} />;
+  if (!listing) return <ErrorMessage message="Listing not found." />;
 
   return (
-    <div>
-      <h1>{listing.title}</h1>
-      <p>{listing.city}</p>
-      <p>Price: ${listing.price}</p>
-      <p>Cleanliness: {listing.cleanliness}</p>
-      <p>Noise level: {listing.noiseLevel}</p>
+    <div className="listing-details-page">
+      <div className="listing-details-card">
+        <div className="listing-details-image-wrapper">
+          <img
+            src={listing.photoUrl || "https://via.placeholder.com/1200x700"}
+            alt={listing.title}
+            className="listing-details-image"
+          />
 
-      <p>Pet friendly: {listing.petsAllowed ? "Yes" : "No"}</p>
-      <p>Smoking allowed: {listing.smokerAllowed ? "Yes" : "No"}</p>
+          <div className="listing-details-tags">
+            {listing.petsAllowed === true && (
+              <span className="listing-details-tag">🐶 Pet-friendly</span>
+            )}
 
-      <img src={listing.photoUrl} alt={listing.title} />
+            {listing.smokerAllowed === true && (
+              <span className="listing-details-tag">🚬 Smoking allowed</span>
+            )}
 
-      <button onClick={() => handleAddFavorite(listing._id)}>
-        Add to Favorites
-      </button>
+            {listing.smokerAllowed === false && (
+              <span className="listing-details-tag">🚭 Non-smoking</span>
+            )}
 
-      <button onClick={handleContactOwner}>Contact</button>
+            {listing.cleanliness >= 4 && (
+              <span className="listing-details-tag">🧼 Clean</span>
+            )}
 
-      <p>Owner: {listing.owner?.name}</p>
+            {listing.noiseLevel <= 2 && (
+              <span className="listing-details-tag">🔇 Quiet</span>
+            )}
+          </div>
+        </div>
 
-      <p>{listing.description}</p>
+        <div className="listing-details-content">
+          <div className="listing-details-header">
+            <div>
+              <h1>{listing.title}</h1>
+              <p className="listing-details-city">📍 {listing.city}</p>
+            </div>
+
+            <p className="listing-details-price">€{listing.price}/mo</p>
+          </div>
+
+          <div className="listing-details-meta">
+            <p>
+              <strong>Cleanliness:</strong> {listing.cleanliness ?? "N/A"}
+            </p>
+            <p>
+              <strong>Noise level:</strong> {listing.noiseLevel ?? "N/A"}
+            </p>
+            <p>
+              <strong>Pets:</strong> {listing.petsAllowed ? "Allowed" : "Not allowed"}
+            </p>
+            <p>
+              <strong>Smoking:</strong>{" "}
+              {listing.smokerAllowed ? "Allowed" : "Not allowed"}
+            </p>
+            <p>
+              <strong>Owner:</strong> {listing.owner?.name || "Unknown"}
+            </p>
+          </div>
+
+          <div className="listing-details-actions">
+            <div>
+              <button
+                className="listing-details-btn primary"
+                onClick={handleAddFavorite}
+              >
+                Add to Favorites
+              </button>
+
+              {favoriteMessage && (
+                <p className="favorite-success">{favoriteMessage}</p>
+              )}
+            </div>
+
+            <button
+              className="listing-details-btn secondary"
+              onClick={handleContactOwner}
+            >
+              Contact Owner
+            </button>
+          </div>
+
+          <div className="listing-details-description">
+            <h2>About this place</h2>
+            <p>{listing.description}</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
