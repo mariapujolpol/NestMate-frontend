@@ -18,6 +18,9 @@ function ListingDetails() {
   const [errorMessage, setErrorMessage] = useState("");
   const [favoriteMessage, setFavoriteMessage] = useState("");
 
+  
+  const isOwner = user && listing.owner?._id === user._id;
+
   useEffect(() => {
     const fetchListing = async () => {
       try {
@@ -149,35 +152,38 @@ function ListingDetails() {
             <p>
               <strong>Owner:</strong> {listing.owner?.name}
             </p>
-
-           
           </div>
 
           <div className="listing-details-actions">
-            <div>
-              <button
-                className="listing-details-btn primary"
-                onClick={handleAddFavorite}
-              >
-                Add to Favorites
-              </button>
+            {!isOwner && (
+              <>
+                <div>
+                  <button
+                    className="listing-details-btn primary"
+                    onClick={handleAddFavorite}
+                  >
+                    Add to Favorites
+                  </button>
 
-              {favoriteMessage && (
-                <p className="favorite-success">{favoriteMessage}</p>
-              )}
-            </div>
+                  {favoriteMessage && (
+                    <p className="favorite-success">{favoriteMessage}</p>
+                  )}
+                </div>
 
-            <button
-              className="listing-details-btn secondary"
-              onClick={handleContactOwner}
-            >
-              Contact Owner
-            </button>
-             <Link
+                <button
+                  className="listing-details-btn secondary"
+                  onClick={handleContactOwner}
+                >
+                  Contact Owner
+                </button>
+              </>
+            )}
+
+            <Link
               to={`/users/${listing.owner?._id}`}
               className="listing-details-btn secondary"
             >
-              View Owner Profile
+              View Profile
             </Link>
           </div>
 
