@@ -107,8 +107,8 @@
 }
 
 .profile-btn.secondary {
-  background: #edf3ef;
-  color: #18322d;
+  background:linear-gradient(135deg, #e78059, #dca74d);
+  color: white;
 }
 
 .profile-loading {

@@ -1,7 +1,7 @@
 .listing-details-page {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 3rem 2rem 5rem;
+  padding: 2rem;
 }
 
 .listing-details-card {
@@ -9,13 +9,17 @@
   border-radius: 28px;
   overflow: hidden;
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.06);
+  max-height: clamp(620px, 78vh, 820px);
+  display: flex;
+  flex-direction: column;
 }
 
 .listing-details-image-wrapper {
   position: relative;
   width: 100%;
-  height: 500px;
+  height: clamp(260px, 42vh, 400px);
   overflow: hidden;
+  flex-shrink: 0;
 }
 
 .listing-details-image {
@@ -44,7 +48,8 @@
 }
 
 .listing-details-content {
-  padding: 2rem;
+  padding: 1.6rem 2rem 1.8rem;
+  overflow: hidden;
 }
 
 .listing-details-header {
@@ -52,12 +57,12 @@
   justify-content: space-between;
   align-items: flex-start;
   gap: 2rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.2rem;
 }
 
 .listing-details-header h1 {
-  margin: 0 0 0.7rem;
-  font-size: 3rem;
+  margin: 0 0 0.5rem;
+  font-size: 2.5rem;
   line-height: 1.1;
   color: #18322d;
 }
@@ -65,13 +70,13 @@
 .listing-details-city {
   margin: 0;
   color: #6f847d;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
 }
 
 .listing-details-price {
   margin: 0;
   color: #e67a52;
-  font-size: 2.4rem;
+  font-size: 2.2rem;
   font-weight: 800;
   white-space: nowrap;
 }
@@ -79,26 +84,26 @@
 .listing-details-meta {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1rem 2rem;
-  margin-bottom: 2rem;
+  gap: 0.8rem 2rem;
+  margin-bottom: 1.6rem;
   color: #355b54;
 }
 
 .listing-details-meta p {
   margin: 0;
-  font-size: 1.05rem;
+  font-size: 1rem;
 }
 
 .listing-details-actions {
   display: flex;
   gap: 1rem;
-  margin-bottom: 2.2rem;
+  margin-bottom: 1.8rem;
 }
 
 .listing-details-btn {
   border: none;
   border-radius: 14px;
-  padding: 0.95rem 1.4rem;
+  padding: 0.9rem 1.3rem;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
@@ -115,37 +120,53 @@
 }
 
 .listing-details-description h2 {
-  margin: 0 0 1rem;
-  font-size: 1.6rem;
+  margin: 0 0 0.8rem;
+  font-size: 1.5rem;
   color: #18322d;
 }
 
 .listing-details-description p {
   margin: 0;
   color: #5b746e;
-  line-height: 1.8;
-  font-size: 1.05rem;
+  line-height: 1.6;
+  font-size: 1rem;
+}
+
+.favorite-success {
+  margin-top: 10px;
+  color: #3f816f;
+  font-weight: 500;
+  font-size: 0.95rem;
 }
 
 @media (max-width: 768px) {
   .listing-details-page {
-    padding: 2rem 1rem 4rem;
+    padding: 1rem;
+  }
+
+  .listing-details-card {
+    max-height: none;
   }
 
   .listing-details-image-wrapper {
-    height: 320px;
+    height: 280px;
+  }
+
+  .listing-details-content {
+    padding: 1.25rem;
   }
 
   .listing-details-header {
     flex-direction: column;
+    gap: 0.8rem;
   }
 
   .listing-details-header h1 {
-    font-size: 2.2rem;
+    font-size: 2rem;
   }
 
   .listing-details-price {
-    font-size: 2rem;
+    font-size: 1.9rem;
   }
 
   .listing-details-meta {
@@ -155,11 +176,4 @@
   .listing-details-actions {
     flex-direction: column;
   }
-}
-
-.favorite-success {
-  margin-top: 10px;
-  color: #3f816f;
-  font-weight: 500;
-  font-size: 0.95rem;
 }

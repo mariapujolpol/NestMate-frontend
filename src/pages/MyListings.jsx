@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getMyListings, deleteListing } from "../services/listings.service";
 import { Link } from "react-router-dom";
-import "../css/MyListingsTemporal.css";
+import "../css/MyListings.css";
 
 function MyListings() {
   const [myListings, setMyListings] = useState([]);

@@ -1,81 +1,63 @@
 import "../css/HomePage.css";
 import { Link } from "react-router-dom";
 import heroImage from "../assets/hero-image.jpg";
+import { useEffect, useState } from "react";
+import { getAllListings } from "../services/listings.service";
+import ListingCard from "../components/ListingCard";
 
 function HomePage() {
-  const featuredRooms = [
-    {
-      id: 1,
-      title: "Sunny Studio in Kreuzberg",
-      city: "Berlin, Kreuzberg",
-      price: 650,
-      tags: ["Pet-friendly", "Balcony"],
-      image:
-        "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80",
-      flatmates: 2,
-      rating: 4.9,
-    },
-    {
-      id: 2,
-      title: "Cozy Flat near Shoreditch",
-      city: "London, Hackney",
-      price: 850,
-      tags: ["LGBTQ+", "Non-smoking"],
-      image:
-        "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=1200&q=80",
-      flatmates: 3,
-      rating: 4.7,
-    },
-    {
-      id: 3,
-      title: "Modern Room in El Born",
-      city: "Barcelona, Ciutat Vella",
-      price: 580,
-      tags: ["Furnished", "Bills incl."],
-      image:
-        "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1200&q=80",
-      flatmates: 1,
-      rating: 4.8,
-    },
-  ];
+  const [featuredListings, setFeaturedListings] = useState([]);
+
+  useEffect(() => {
+    const fetchListings = async () => {
+      try {
+        const response = await getAllListings();
+
+        const shuffled = response.data.sort(() => 0.5 - Math.random());
+
+        setFeaturedListings(shuffled.slice(0, 3));
+      } catch (error) {
+        console.log("Error fetching listings:", error);
+      }
+    };
+
+    fetchListings();
+  }, []);
 
   return (
     <div className="homepage">
-    {/* HERO */}
-    <section
-  className="hero"
-  style={{ backgroundImage: `url(${heroImage})` }}
->
-  <div className="hero-overlay"></div>
+      {/* HERO */}
+      <section
+        className="hero"
+        style={{ backgroundImage: `url(${heroImage})` }}
+      >
+        <div className="hero-overlay"></div>
 
-  <div className="hero-content">
-    <div className="hero-text">
-          <span className="hero-badge">Find your perfect flatmate 🏠</span>
+        <div className="hero-content">
+          <div className="hero-text">
+            <span className="hero-badge">Find your perfect flatmate 🏠</span>
 
-          <h1>
-            Your next home
-            <br />
-            <span>starts here.</span>
-          </h1>
+            <h1>
+              Your next home
+              <br />
+              <span>starts here.</span>
+            </h1>
 
-          <p>
-            NestMate connects you with compatible flatmates and the best shared
-            living spaces in your city. No stress, just home.
-          </p>
+            <p>
+              NestMate connects you with compatible flatmates and the best
+              shared living spaces in your city. No stress, just home.
+            </p>
 
-          <div className="hero-search">
-            <input
-              type="text"
-              placeholder="Enter city or neighbourhood..."
-            />
-            <button>Search</button>
-          </div>
+            <div className="hero-search">
+              <input type="text" placeholder="Enter city or neighbourhood..." />
+              <button>Search</button>
+            </div>
 
-          <div className="hero-stats">
-            <span>• 2,400+ listings</span>
-            <span>• 98% match rate</span>
-            <span>• Free to use</span>
-          </div>
+            <div className="hero-stats">
+              <span>• 2,400+ listings</span>
+              <span>• 98% match rate</span>
+              <span>• Free to use</span>
+            </div>
           </div>
         </div>
       </section>
@@ -141,36 +123,52 @@ function HomePage() {
         </p>
 
         <div className="rooms-grid">
-          {featuredRooms.map((room) => {
+          {featuredListings.map((listing) => {
             return (
-              <article key={room.id} className="room-card">
-                <div className="room-image-wrapper">
-                  <img src={room.image} alt={room.title} className="room-image" />
-                  <button className="fav-btn">♡</button>
+              <Link
+                key={listing._id}
+                to={`/listings/${listing._id}`}
+                className="room-card-link"
+              >
+                <article className="room-card">
+                  <div className="room-image-wrapper">
+                    <img
+                      src={
+                        listing.photoUrl ||
+                        "https://via.placeholder.com/600x400?text=Room"
+                      }
+                      alt={listing.title}
+                      className="room-image"
+                    />
 
-                  <div className="room-tags">
-                    {room.tags.map((tag, index) => (
-                      <span key={index} className="room-tag">
-                        {tag}
-                      </span>
-                    ))}
+                    <button className="fav-btn">♡</button>
+
+                    <div className="room-tags">
+                      {listing.petsAllowed && (
+                        <span className="room-tag">🐶 Pet-friendly</span>
+                      )}
+
+                      {listing.smokerAllowed ? (
+                        <span className="room-tag">🚬 Smoking allowed</span>
+                      ) : (
+                        <span className="room-tag">🚭 Non-smoking</span>
+                      )}
+                    </div>
                   </div>
-                </div>
 
-                <div className="room-info">
-                  <div className="room-title-row">
-                    <h3>{room.title}</h3>
-                    <span className="room-rating">⭐ {room.rating}</span>
+                  <div className="room-info">
+                    <div className="room-title-row">
+                      <h3>{listing.title}</h3>
+                    </div>
+
+                    <p className="room-city">{listing.city}</p>
+
+                    <div className="room-bottom">
+                      <span className="room-price">€{listing.price}/mo</span>
+                    </div>
                   </div>
-
-                  <p className="room-city">{room.city}</p>
-
-                  <div className="room-bottom">
-                    <span className="room-price">€{room.price}/mo</span>
-                    <span className="room-flatmates">{room.flatmates} flatmates</span>
-                  </div>
-                </div>
-              </article>
+                </article>
+              </Link>
             );
           })}
         </div>

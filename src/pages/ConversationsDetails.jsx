@@ -14,67 +14,81 @@ function ConversationDetails() {
   const [messages, setMessages] = useState([]);
   const [text, setText] = useState("");
   const [conversation, setConversation] = useState(null);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   const myUserId = user?.payload?._id;
 
   const otherUser = conversation?.participants?.find(
-    (participant) => participant._id !== myUserId,
+    (participant) => participant?._id !== myUserId,
   );
-  useEffect(() => {
-    const fetchMessages = async () => {
-      try {
-        const response = await getMessagesByConversation(conversationId);
-        console.log("messages:", response.data);
-        setConversation(response.data.conversation);
-        setMessages(response.data.messages);
-      } catch (error) {
-        console.log("Error fetching messages:", error);
-      }
-    };
 
+  const fetchMessages = async () => {
+    try {
+      setIsRefreshing(true);
+
+      const response = await getMessagesByConversation(conversationId);
+      console.log("messages:", response.data);
+
+      setConversation(response.data.conversation);
+      setMessages(response.data.messages);
+    } catch (error) {
+      console.log("Error fetching messages:", error);
+    } finally {
+      setIsRefreshing(false);
+    }
+  };
+
+  useEffect(() => {
     fetchMessages();
   }, [conversationId]);
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (!text.trim()) return;
+  if (!text.trim()) return;
 
-    try {
-      const response = await sendMessage(conversationId, { text });
-
-      setMessages((prev) => [...prev, response.data]);
-      setText("");
-    } catch (error) {
-      console.log("Error sending message:", error);
-    }
-  };
+  try {
+    await sendMessage(conversationId, { text });
+    setText("");
+    fetchMessages();
+  } catch (error) {
+    console.log("Error sending message:", error);
+  }
+};
 
   return (
     <div className="chat-page">
       <div className="chat-container">
         <div className="chat-header">
-          <div className="chat-header-info">
-            <img
-              src={
-                otherUser?.photoUrl ||
-                "https://via.placeholder.com/80x80?text=User"
-              }
-              alt={otherUser?.name || "User"}
-              className="chat-user-avatar"
-            />
+          <div className="chat-header-top">
+            <div className="chat-header-info">
+              <img
+                src={
+                  otherUser?.photoUrl ||
+                  "https://via.placeholder.com/80x80?text=User"
+                }
+                alt={otherUser ? otherUser.name : "User"}
+                className="chat-user-avatar"
+              />
 
-            <div className="chat-header-text">
-              <h2 className="chat-title">
-                Chat with {otherUser?.name || "User"}
-              </h2>
-
-              {conversation?.listing?.title && (
+              <div className="chat-header-text">
+                <h1 className="chat-title">
+                  {otherUser ? otherUser.name : "User"}
+                </h1>
                 <p className="chat-subtitle">
-                  About: {conversation.listing.title}
+                  {conversation?.listing?.title || "Conversation"}
                 </p>
-              )}
+              </div>
             </div>
+
+            <button
+              type="button"
+              className="chat-refresh-button"
+              onClick={fetchMessages}
+              disabled={isRefreshing}
+            >
+              {isRefreshing ? "Refreshing..." : "Refresh"}
+            </button>
           </div>
         </div>
 
