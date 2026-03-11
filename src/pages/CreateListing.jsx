@@ -4,7 +4,6 @@ import { createListing } from "../services/listings.service";
 import "../css/CreateListing.css";
 
 function CreateListing() {
-
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -32,7 +31,6 @@ function CreateListing() {
     e.preventDefault();
 
     try {
-
       const listingData = {
         ...formData,
         price: Number(formData.price),
@@ -43,7 +41,6 @@ function CreateListing() {
       await createListing(listingData);
 
       navigate("/listings");
-
     } catch (error) {
       console.log("Error creating listing:", error);
     }
@@ -112,14 +109,13 @@ function CreateListing() {
                 onChange={handleChange}
               >
                 <option value="">Select cleanliness</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
+                <option value="1">Spotless</option>
+                <option value="2">Very Clean</option>
+                <option value="3">Clean</option>
+                <option value="4">Fair</option>
+                <option value="5">Very Poor</option>
               </select>
             </div>
-
             <div className="form-group">
               <label>Noise Level</label>
               <select
@@ -128,11 +124,11 @@ function CreateListing() {
                 onChange={handleChange}
               >
                 <option value="">Select noise level</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
+                <option value="1">Very Noisy</option>
+                <option value="2">Noisy</option>
+                <option value="3">Moderate</option>
+                <option value="4">Quiet</option>
+                <option value="5">Very Quiet</option>
               </select>
             </div>
           </div>

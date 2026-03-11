@@ -81,126 +81,128 @@ function EditListing() {
   if (errorMessage && !formData.title) return <p>{errorMessage}</p>;
 
   return (
-  <div className="edit-listing-page">
-    <div className="edit-listing-card">
-      <div className="edit-listing-header">
-        <h2>Edit Listing</h2>
-        <p>Update your listing information</p>
+    <div className="edit-listing-page">
+      <div className="edit-listing-card">
+        <div className="edit-listing-header">
+          <h2>Edit Listing</h2>
+          <p>Update your listing information</p>
+        </div>
+
+        <form onSubmit={handleSubmit} className="edit-listing-form">
+          <div className="edit-listing-section">
+            <h3>Basic information</h3>
+
+            <label>
+              Title
+              <input type="text" name="title" value={formData.title} disabled />
+            </label>
+
+            <label>
+              City
+              <input type="text" name="city" value={formData.city} disabled />
+            </label>
+
+            <label>
+              Price
+              <input
+                type="number"
+                name="price"
+                value={formData.price}
+                onChange={handleChange}
+              />
+            </label>
+
+            <label>
+              Description
+              <textarea
+                name="description"
+                value={formData.description}
+                onChange={handleChange}
+              />
+            </label>
+          </div>
+
+          <div className="edit-listing-section">
+            <h3>Flat preferences</h3>
+
+            <label>
+              Cleanliness
+              <select
+                name="cleanliness"
+                value={formData.cleanliness}
+                onChange={handleChange}
+              >
+                <option value="">Select cleanliness</option>
+                <option value="1">Spotless</option>
+                <option value="2">Very Clean</option>
+                <option value="3">Clean</option>
+                <option value="4">Fair</option>
+                <option value="5">Very Poor</option>
+              </select>
+            </label>
+
+            <label>
+              Noise Level
+              <select
+                name="noiseLevel"
+                value={formData.noiseLevel}
+                onChange={handleChange}
+              >
+                <option value="">Select noise level</option>
+                <option value="1">Very Noisy</option>
+                <option value="2">Noisy</option>
+                <option value="3">Moderate</option>
+                <option value="4">Quiet</option>
+                <option value="5">Very Quiet</option>
+              </select>
+            </label>
+
+            <label>
+              Photo URL
+              <input
+                type="text"
+                name="photoUrl"
+                value={formData.photoUrl}
+                onChange={handleChange}
+              />
+            </label>
+
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                name="petsAllowed"
+                checked={formData.petsAllowed}
+                onChange={handleChange}
+              />
+              Pets allowed
+            </label>
+
+            <label className="checkbox-label">
+              <input
+                type="checkbox"
+                name="smokerAllowed"
+                checked={formData.smokerAllowed}
+                onChange={handleChange}
+              />
+              Smoker allowed
+            </label>
+          </div>
+
+          {errorMessage && <p className="edit-listing-error">{errorMessage}</p>}
+
+          <div className="edit-listing-actions">
+            <button
+              type="submit"
+              className="edit-listing-btn"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? "Saving..." : "Save changes"}
+            </button>
+          </div>
+        </form>
       </div>
-
-      <form onSubmit={handleSubmit} className="edit-listing-form">
-        <div className="edit-listing-section">
-          <h3>Basic information</h3>
-
-          <label>
-            Title
-            <input
-              type="text"
-              name="title"
-              value={formData.title}
-              disabled
-            />
-          </label>
-
-          <label>
-            City
-            <input
-              type="text"
-              name="city"
-              value={formData.city}
-              disabled
-            />
-          </label>
-
-          <label>
-            Price
-            <input
-              type="number"
-              name="price"
-              value={formData.price}
-              onChange={handleChange}
-            />
-          </label>
-
-          <label>
-            Description
-            <textarea
-              name="description"
-              value={formData.description}
-              onChange={handleChange}
-            />
-          </label>
-        </div>
-
-        <div className="edit-listing-section">
-          <h3>Flat preferences</h3>
-
-          <label>
-            Cleanliness
-            <input
-              type="number"
-              name="cleanliness"
-              min="1"
-              max="5"
-              value={formData.cleanliness}
-              onChange={handleChange}
-            />
-          </label>
-
-          <label>
-            Noise Level
-            <input
-              type="number"
-              name="noiseLevel"
-              min="1"
-              max="5"
-              value={formData.noiseLevel}
-              onChange={handleChange}
-            />
-          </label>
-
-          <label>
-            Photo URL
-            <input
-              type="text"
-              name="photoUrl"
-              value={formData.photoUrl}
-              onChange={handleChange}
-            />
-          </label>
-
-          <label className="checkbox-label">
-            <input
-              type="checkbox"
-              name="petsAllowed"
-              checked={formData.petsAllowed}
-              onChange={handleChange}
-            />
-            Pets allowed
-          </label>
-
-          <label className="checkbox-label">
-            <input
-              type="checkbox"
-              name="smokerAllowed"
-              checked={formData.smokerAllowed}
-              onChange={handleChange}
-            />
-            Smoker allowed
-          </label>
-        </div>
-
-        {errorMessage && <p className="edit-listing-error">{errorMessage}</p>}
-
-        <div className="edit-listing-actions">
-          <button type="submit" className="edit-listing-btn" disabled={isSubmitting}>
-            {isSubmitting ? "Saving..." : "Save changes"}
-          </button>
-        </div>
-      </form>
     </div>
-  </div>
-);
+  );
 }
 
 export default EditListing;

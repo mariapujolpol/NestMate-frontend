@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
 import { getListingById } from "../services/listings.service";
 import { addFavorite } from "../services/favorites.service";
@@ -68,6 +68,22 @@ function ListingDetails() {
   if (errorMessage) return <ErrorMessage message={errorMessage} />;
   if (!listing) return <ErrorMessage message="Listing not found." />;
 
+  const cleanlinessLabels = {
+    1: "Spotless",
+    2: "Very Clean",
+    3: "Clean",
+    4: "Fair",
+    5: "Very Poor",
+  };
+
+  const noiseLevelLabels = {
+    1: "Very Noisy",
+    2: "Noisy",
+    3: "Moderate",
+    4: "Quiet",
+    5: "Very Quiet",
+  };
+
   return (
     <div className="listing-details-page">
       <div className="listing-details-card">
@@ -79,23 +95,21 @@ function ListingDetails() {
           />
 
           <div className="listing-details-tags">
-            {listing.petsAllowed === true && (
+            {listing.petsAllowed && (
               <span className="listing-details-tag">🐶 Pet-friendly</span>
             )}
 
-            {listing.smokerAllowed === true && (
+            {listing.smokerAllowed ? (
               <span className="listing-details-tag">🚬 Smoking allowed</span>
-            )}
-
-            {listing.smokerAllowed === false && (
+            ) : (
               <span className="listing-details-tag">🚭 Non-smoking</span>
             )}
 
-            {listing.cleanliness >= 4 && (
-              <span className="listing-details-tag">🧼 Clean</span>
+            {(listing.cleanliness === 1 || listing.cleanliness === 2) && (
+              <span className="listing-details-tag">🧼 Very clean</span>
             )}
 
-            {listing.noiseLevel <= 2 && (
+            {(listing.noiseLevel === 4 || listing.noiseLevel === 5) && (
               <span className="listing-details-tag">🔇 Quiet</span>
             )}
           </div>
@@ -113,21 +127,30 @@ function ListingDetails() {
 
           <div className="listing-details-meta">
             <p>
-              <strong>Cleanliness:</strong> {listing.cleanliness ?? "N/A"}
+              <strong>Cleanliness:</strong>{" "}
+              {cleanlinessLabels[listing.cleanliness] || "N/A"}
             </p>
+
             <p>
-              <strong>Noise level:</strong> {listing.noiseLevel ?? "N/A"}
+              <strong>Noise level:</strong>{" "}
+              {noiseLevelLabels[listing.noiseLevel] || "N/A"}
             </p>
+
             <p>
-              <strong>Pets:</strong> {listing.petsAllowed ? "Allowed" : "Not allowed"}
+              <strong>Pets:</strong>{" "}
+              {listing.petsAllowed ? "Allowed" : "Not allowed"}
             </p>
+
             <p>
               <strong>Smoking:</strong>{" "}
               {listing.smokerAllowed ? "Allowed" : "Not allowed"}
             </p>
+
             <p>
-              <strong>Owner:</strong> {listing.owner?.name || "Unknown"}
+              <strong>Owner:</strong> {listing.owner?.name}
             </p>
+
+           
           </div>
 
           <div className="listing-details-actions">
@@ -146,11 +169,16 @@ function ListingDetails() {
 
             <button
               className="listing-details-btn secondary"
-              
               onClick={handleContactOwner}
             >
               Contact Owner
             </button>
+             <Link
+              to={`/users/${listing.owner?._id}`}
+              className="listing-details-btn secondary"
+            >
+              View Owner Profile
+            </Link>
           </div>
 
           <div className="listing-details-description">

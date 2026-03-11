@@ -13,8 +13,8 @@ function Footer() {
         <p className="footer-copy">© 2026 nestmate. All rights reserved.</p>
 
         <div className="footer-links">
-          <a href="#">About</a>
-          <a href="#">Contact</a>
+          <Link to="/AboutPage">About</Link>
+          <Link to="/ContactPage">Contact</Link>
         </div>
       </div>
     </footer>

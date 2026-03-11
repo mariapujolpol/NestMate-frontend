@@ -4,6 +4,7 @@ import { myProfile, getProfile } from "../services/users.service";
 import { getMyListings } from "../services/listings.service";
 import "../css/Profile.css";
 
+
 function Profile() {
   const { userId } = useParams();
   const [profile, setProfile] = useState(null);
@@ -54,6 +55,22 @@ function Profile() {
   if (loading) return <p className="profile-loading">Loading...</p>;
   if (!profile) return <p className="profile-loading">Profile not found.</p>;
 
+  const cleanlinessLabels = {
+    1: "Spotless",
+    2: "Very Clean",
+    3: "Clean",
+    4: "Fair",
+    5: "Very Poor",
+  };
+
+  const noiseLevelLabels = {
+    1: "Very Noisy",
+    2: "Noisy",
+    3: "Moderate",
+    4: "Quiet",
+    5: "Very Quiet",
+  };
+
   return (
     <div className="profile-page">
       <div className="profile-card">
@@ -64,7 +81,7 @@ function Profile() {
         )}
         <div className="profile-header">
           <img
-            src={profile.photoUrl || "https://via.placeholder.com/300x300"}
+            src={profile.photoUrl || "/avatar.png"}
             alt={profile.name}
             className="profile-avatar"
           />
@@ -125,10 +142,13 @@ function Profile() {
                 <strong>Age:</strong> {profile.age || "N/A"}
               </p>
               <p>
-                <strong>Cleanliness:</strong> {profile.cleanliness ?? "N/A"}
+                <strong>Cleanliness:</strong>{" "}
+                {cleanlinessLabels[profile.cleanliness] || "N/A"}
               </p>
+
               <p>
-                <strong>Noise level:</strong> {profile.noiseLevel ?? "N/A"}
+                <strong>Noise level:</strong>{" "}
+                {noiseLevelLabels[profile.noiseLevel] || "N/A"}
               </p>
               <p>
                 <strong>Pets:</strong> {profile.pets ? "Yes" : "No"}

@@ -1,0 +1,146 @@
+.about-page {
+  background-color: #f8f6f2;
+  color: #1f1f1f;
+  min-height: 100vh;
+}
+
+/* HERO */
+
+.about-hero {
+  padding: 6rem 2rem 5rem;
+  background: linear-gradient(135deg, #fffaf5, #f3ede4);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.about-hero-content {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.about-title {
+  font-size: 3rem;
+  line-height: 1.1;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #1f1f1f;
+}
+
+.about-subtitle {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  color: #5f5b53;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* GENERAL SECTIONS */
+
+.about-section {
+  padding: 5rem 2rem;
+}
+
+.about-container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+.about-heading {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #1f1f1f;
+}
+
+.about-text {
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: #4f4a43;
+  margin-bottom: 1.25rem;
+  max-width: 800px;
+}
+
+.about-solution {
+  background-color: #fffdf9;
+}
+
+/* FEATURES */
+
+.about-features {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.about-feature {
+  background-color: #ffffff;
+  padding: 1.8rem;
+  border-radius: 18px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.about-feature:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+}
+
+.feature-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+  color: #1f1f1f;
+}
+
+.feature-text {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #5f5b53;
+}
+
+/* CREATORS */
+
+.about-creators {
+  background-color: #f3ede4;
+  border-top: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+/* RESPONSIVE */
+
+@media (max-width: 768px) {
+  .about-hero {
+    padding: 4.5rem 1.5rem 4rem;
+  }
+
+  .about-title {
+    font-size: 2.2rem;
+  }
+
+  .about-subtitle {
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .about-section {
+    padding: 4rem 1.5rem;
+  }
+
+  .about-heading {
+    font-size: 1.6rem;
+  }
+
+  .about-text {
+    font-size: 1rem;
+    line-height: 1.8;
+  }
+
+  .about-features {
+    grid-template-columns: 1fr;
+  }
+
+  .about-feature {
+    padding: 1.5rem;
+  }
+}

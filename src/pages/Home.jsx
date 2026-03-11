@@ -1,12 +1,16 @@
 import "../css/HomePage.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import heroImage from "../assets/hero-image.jpg";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { getAllListings } from "../services/listings.service";
 import ListingCard from "../components/ListingCard";
+import { AuthContext } from "../context/auth.context";
 
 function HomePage() {
   const [featuredListings, setFeaturedListings] = useState([]);
+  const [searchCity, setSearchCity] = useState("");
+  const navigate = useNavigate();
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchListings = async () => {
@@ -23,6 +27,12 @@ function HomePage() {
 
     fetchListings();
   }, []);
+
+  const handleSearch = () => {
+    if (!searchCity.trim()) return;
+
+    navigate(`/listings?city=${searchCity}`);
+  };
 
   return (
     <div className="homepage">
@@ -49,8 +59,13 @@ function HomePage() {
             </p>
 
             <div className="hero-search">
-              <input type="text" placeholder="Enter city or neighbourhood..." />
-              <button>Search</button>
+              <input
+                type="text"
+                placeholder="Enter city..."
+                value={searchCity}
+                onChange={(e) => setSearchCity(e.target.value)}
+              />
+              <button onClick={handleSearch}>Search</button>
             </div>
 
             <div className="hero-stats">
@@ -94,7 +109,7 @@ function HomePage() {
             <h3>Move In</h3>
             <p>
               Schedule visits, sign digitally, and settle into your new home.
-              It’s that simple.
+              It's that simple.
             </p>
           </article>
         </div>
@@ -108,7 +123,8 @@ function HomePage() {
             Join thousands of happy flatmates who found their perfect match on
             NestMate.
           </p>
-          <Link to="/register" className="cta-button">
+
+          <Link to={user ? "/listings" : "/register"} className="cta-button">
             Get Started →
           </Link>
         </div>
@@ -117,12 +133,12 @@ function HomePage() {
       {/* FEATURED */}
       <section className="featured-rooms">
         <p className="section-label">FEATURED ROOMS</p>
-        <h2>Spaces you’ll love</h2>
+        <h2>Spaces you'll love</h2>
         <p className="featured-subtitle">
           Hand-picked listings from verified hosts, ready for you to move in.
         </p>
 
-        <div className="rooms-grid">
+        <div className="listings-grid">
           {featuredListings.map((listing) => {
             return (
               <Link
@@ -130,44 +146,7 @@ function HomePage() {
                 to={`/listings/${listing._id}`}
                 className="room-card-link"
               >
-                <article className="room-card">
-                  <div className="room-image-wrapper">
-                    <img
-                      src={
-                        listing.photoUrl ||
-                        "https://via.placeholder.com/600x400?text=Room"
-                      }
-                      alt={listing.title}
-                      className="room-image"
-                    />
-
-                    <button className="fav-btn">♡</button>
-
-                    <div className="room-tags">
-                      {listing.petsAllowed && (
-                        <span className="room-tag">🐶 Pet-friendly</span>
-                      )}
-
-                      {listing.smokerAllowed ? (
-                        <span className="room-tag">🚬 Smoking allowed</span>
-                      ) : (
-                        <span className="room-tag">🚭 Non-smoking</span>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="room-info">
-                    <div className="room-title-row">
-                      <h3>{listing.title}</h3>
-                    </div>
-
-                    <p className="room-city">{listing.city}</p>
-
-                    <div className="room-bottom">
-                      <span className="room-price">€{listing.price}/mo</span>
-                    </div>
-                  </div>
-                </article>
+                <ListingCard listing={listing} />
               </Link>
             );
           })}

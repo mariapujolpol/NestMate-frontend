@@ -19,6 +19,8 @@ import Conversations from "./pages/Conversations";
 import ListingDetails from "./pages/ListingDetails";
 import ConversationsDetails from "./pages/ConversationsDetails";
 import MyListings from "./pages/MyListings";
+import About from "./pages/AboutPage";
+import Contact from "./pages/ContactPage";
 
 import "./App.css";
 import "./index.css";
@@ -36,6 +38,8 @@ function App() {
           <Route path="/listings/:listingId" element={<ListingDetails />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/AboutPage" element={<About />} />
+          <Route path="/ContactPage" element={<Contact />} />
 
           {/* Private */}
           <Route
