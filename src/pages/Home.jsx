@@ -17,7 +17,10 @@ function HomePage() {
   useEffect(() => {
     const fetchListings = async () => {
       try {
-        const response = await getAllListings();
+        const [response] = await Promise.all([
+          getAllListings(),
+          new Promise((resolve) => setTimeout(resolve, 3000))
+        ]);
 
         const shuffled = response.data.sort(() => 0.5 - Math.random());
 

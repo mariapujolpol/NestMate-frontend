@@ -29,7 +29,11 @@ function Listings() {
   useEffect(() => {
     const fetchListings = async () => {
       try {
-        const response = await getAllListings();
+        const [response] = await Promise.all([
+          getAllListings(),
+          new Promise((resolve) => setTimeout(resolve, 1800)),
+        ]);
+
         setListings(response.data);
       } catch (error) {
         setErrorMessage("Failed to load listings.");
@@ -37,7 +41,6 @@ function Listings() {
         setIsLoading(false);
       }
     };
-
     fetchListings();
   }, []);
 
@@ -54,41 +57,41 @@ function Listings() {
     }
   }, [location.search]);
 
-const handleAddFavorite = async (listingId) => {
-  if (favoriteTimeout) {
-    clearTimeout(favoriteTimeout);
-  }
+  const handleAddFavorite = async (listingId) => {
+    if (favoriteTimeout) {
+      clearTimeout(favoriteTimeout);
+    }
 
-  try {
-    await addFavorite(listingId);
+    try {
+      await addFavorite(listingId);
 
-    setFavoriteMessage({
-      id: listingId,
-      type: "success",
-      text: "Added to favorites ❤️",
-    });
+      setFavoriteMessage({
+        id: listingId,
+        type: "success",
+        text: "Added to favorites ❤️",
+      });
 
-    const timeout = setTimeout(() => {
-      setFavoriteMessage(null);
-    }, 2500);
+      const timeout = setTimeout(() => {
+        setFavoriteMessage(null);
+      }, 2500);
 
-    setFavoriteTimeout(timeout);
-  } catch (error) {
-    console.log(error);
+      setFavoriteTimeout(timeout);
+    } catch (error) {
+      console.log(error);
 
-    setFavoriteMessage({
-      id: listingId,
-      type: "error",
-      text: "🔒 Login required",
-    });
+      setFavoriteMessage({
+        id: listingId,
+        type: "error",
+        text: "🔒 Login required",
+      });
 
-    const timeout = setTimeout(() => {
-      setFavoriteMessage(null);
-    }, 2500);
+      const timeout = setTimeout(() => {
+        setFavoriteMessage(null);
+      }, 2500);
 
-    setFavoriteTimeout(timeout);
-  }
-};
+      setFavoriteTimeout(timeout);
+    }
+  };
 
   const handleFilterChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -228,24 +231,24 @@ const handleAddFavorite = async (listingId) => {
       </div>
 
       <div className="listings-grid">
-  {sortedListings.map((listing) => {
-    return (
-      <div key={listing._id} className="listing-card-wrapper">
-        <ListingCard
-          listing={listing}
-          onFavoriteClick={handleAddFavorite}
-          favoriteIcon="♡"
-        />
+        {sortedListings.map((listing) => {
+          return (
+            <div key={listing._id} className="listing-card-wrapper">
+              <ListingCard
+                listing={listing}
+                onFavoriteClick={handleAddFavorite}
+                favoriteIcon="♡"
+              />
 
-        {favoriteMessage?.id === listing._id && (
-          <div className={`favorite-popup ${favoriteMessage.type}`}>
-            {favoriteMessage.text}
-          </div>
-        )}
+              {favoriteMessage?.id === listing._id && (
+                <div className={`favorite-popup ${favoriteMessage.type}`}>
+                  {favoriteMessage.text}
+                </div>
+              )}
+            </div>
+          );
+        })}
       </div>
-    );
-  })}
-</div>
     </div>
   );
 }

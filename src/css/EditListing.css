@@ -178,3 +178,11 @@
     width: 100%;
   }
 }
+
+.edit-listing-preview {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 14px;
+  border: 1px solid #e5e5e5;
+}
