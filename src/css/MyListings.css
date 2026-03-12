@@ -49,16 +49,19 @@
 .my-listing-actions a,
 .my-listing-actions button {
   border: none;
-  background-color: #f2f2f2;
+  background: #e9e9e9;
+  color: #484848;
   padding: 0.65rem 1rem;
   border-radius: 10px;
   cursor: pointer;
   text-decoration: none;
-  color: #222;
+  font-weight: 700;
+  
   font-size: 0.95rem;
 }
 
 .my-listing-actions button:hover,
 .my-listing-actions a:hover {
-  background-color: #e7e7e6;
+  background: linear-gradient(135deg, #e78059, #dca74d);
+  color: white;
 }

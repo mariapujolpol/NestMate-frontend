@@ -43,7 +43,7 @@ function HomePage() {
       >
         <div className="hero-overlay"></div>
 
-        <div className="hero-content">
+        <div className="hero-content page-container">
           <div className="hero-text">
             <span className="hero-badge">Find your perfect flatmate 🏠</span>
 
@@ -78,7 +78,7 @@ function HomePage() {
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="how-it-works">
+      <section className="how-it-works page-container section-spacing">
         <p className="section-label">HOW IT WORKS</p>
         <h2>Three steps to home</h2>
 
@@ -116,7 +116,7 @@ function HomePage() {
       </section>
 
       {/* CTA */}
-      <section className="cta-section">
+      <section className="cta-section page-container section-spacing">
         <div className="cta-box">
           <h2>Ready to find your nest?</h2>
           <p>
@@ -131,25 +131,27 @@ function HomePage() {
       </section>
 
       {/* FEATURED */}
-      <section className="featured-rooms">
-        <p className="section-label">FEATURED ROOMS</p>
-        <h2>Spaces you'll love</h2>
-        <p className="featured-subtitle">
-          Hand-picked listings from verified hosts, ready for you to move in.
-        </p>
+      <section className="featured-rooms section-spacing">
+        <div className="page-container">
+          <p className="section-label">FEATURED ROOMS</p>
+          <h2>Spaces you'll love</h2>
+          <p className="featured-subtitle">
+            Hand-picked listings from verified hosts, ready for you to move in.
+          </p>
 
-        <div className="listings-grid">
-          {featuredListings.map((listing) => {
-            return (
-              <Link
-                key={listing._id}
-                to={`/listings/${listing._id}`}
-                className="room-card-link"
-              >
-                <ListingCard listing={listing} />
-              </Link>
-            );
-          })}
+          <div className="listings-grid">
+            {featuredListings.map((listing) => {
+              return (
+                <Link
+                  key={listing._id}
+                  to={`/listings/${listing._id}`}
+                  className="room-card-link"
+                >
+                  <ListingCard listing={listing} />
+                </Link>
+              );
+            })}
+          </div>
         </div>
       </section>
     </div>

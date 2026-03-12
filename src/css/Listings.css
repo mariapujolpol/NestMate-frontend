@@ -5,7 +5,7 @@
 }
 
 .listings-page h1 {
-  font-size: 4rem;
+  font-size: 3rem;
   margin-bottom: 2.5rem;
   color: #18322d;
 }
@@ -59,4 +59,62 @@ display:flex;
 align-items:center;
 gap:6px;
 font-size:14px;
+}
+
+.listing-card-wrapper {
+  position: relative;
+}
+
+.favorite-popup {
+  position: absolute;
+  top: 18px;
+  right: 72px;
+  z-index: 20;
+
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px;
+  width: max-content !important;
+  height: auto !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  max-width: none !important;
+  max-height: none !important;
+
+  margin: 0 !important;
+  padding: 0.55rem 0.95rem !important;
+  border: none !important;
+  border-radius: 999px !important;
+
+  background: #c95b5b !important;
+  color: #fff !important;
+
+  font-family: Arial, Helvetica, sans-serif !important;
+  font-size: 0.9rem !important;
+  font-weight: 600 !important;
+  line-height: 1.1 !important;
+  white-space: nowrap !important;
+  text-align: center !important;
+
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.14) !important;
+  animation: toastIn 0.18s ease;
+}
+
+.favorite-popup.success {
+  background: #3f816f !important;
+}
+
+.favorite-popup.error {
+  background: #c95b5b !important;
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

@@ -1,6 +1,6 @@
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useEffect, useState, useContext } from "react";
-import { getListingById } from "../services/listings.service";
+import { getListingById, deleteListing } from "../services/listings.service";
 import { addFavorite } from "../services/favorites.service";
 import { startConversation } from "../services/conversations.service";
 import { AuthContext } from "../context/auth.context";
@@ -17,9 +17,6 @@ function ListingDetails() {
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [favoriteMessage, setFavoriteMessage] = useState("");
-
-  
-  const isOwner = user && listing.owner?._id === user._id;
 
   useEffect(() => {
     const fetchListing = async () => {
@@ -57,8 +54,12 @@ function ListingDetails() {
         return;
       }
 
-      const ownerId = listing.owner._id;
+      if (!listing?.owner?._id) {
+        alert("Owner not found.");
+        return;
+      }
 
+      const ownerId = listing.owner._id;
       const response = await startConversation(listing._id, ownerId);
       navigate(`/conversations/${response.data._id}`);
     } catch (error) {
@@ -67,9 +68,28 @@ function ListingDetails() {
     }
   };
 
+  const handleDelete = async () => {
+  const confirmDelete = window.confirm(
+    "Are you sure you want to delete this listing?"
+  );
+
+  if (!confirmDelete) return;
+
+  try {
+    await deleteListing(listing._id);
+    navigate("/my-listings");
+  } catch (error) {
+    console.log("Error deleting listing:", error);
+    alert("Failed to delete listing.");
+  }
+};
+
   if (isLoading) return <Spinner />;
   if (errorMessage) return <ErrorMessage message={errorMessage} />;
   if (!listing) return <ErrorMessage message="Listing not found." />;
+
+  const myUserId = user?.payload?._id || user?._id;
+  const isOwner = myUserId && listing?.owner?._id === myUserId;
 
   const cleanlinessLabels = {
     1: "Spotless",
@@ -155,7 +175,30 @@ function ListingDetails() {
           </div>
 
           <div className="listing-details-actions">
-            {!isOwner && (
+            {isOwner ? (
+              <>
+                <Link
+                  to="/my-listings"
+                  className="listing-details-btn secondary"
+                >
+                  Back to My Listings
+                </Link>
+
+                <Link
+                  to={`/listings/${listing._id}/edit`}
+                  className="listing-details-btn secondary"
+                >
+                  Edit
+                </Link>
+
+                <button
+                  className="listing-details-btn danger"
+                  onClick={handleDelete}
+                >
+                  Delete
+                </button>
+              </>
+            ) : (
               <>
                 <div>
                   <button
@@ -176,17 +219,16 @@ function ListingDetails() {
                 >
                   Contact Owner
                 </button>
+
+                <Link
+                  to={`/users/${listing.owner._id}`}
+                  className="listing-details-btn secondary"
+                >
+                  View Profile
+                </Link>
               </>
             )}
-
-            <Link
-              to={`/users/${listing.owner?._id}`}
-              className="listing-details-btn secondary"
-            >
-              View Profile
-            </Link>
           </div>
-
           <div className="listing-details-description">
             <h2>About this place</h2>
             <p>{listing.description}</p>

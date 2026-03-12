@@ -3,7 +3,7 @@ import Navbar from "./components/Navbar";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Footer from "./components/Footer";
 
-import Home from "./pages/Home";
+import HomePage from "./pages/Home";
 import Listings from "./pages/Listings";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
@@ -22,8 +22,6 @@ import MyListings from "./pages/MyListings";
 import About from "./pages/AboutPage";
 import Contact from "./pages/ContactPage";
 
-import "./App.css";
-import "./index.css";
 
 function App() {
   return (
@@ -33,7 +31,7 @@ function App() {
       <main className="main-content">
         <Routes>
           {/* Public */}
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<HomePage />} />
           <Route path="/listings" element={<Listings />} />
           <Route path="/listings/:listingId" element={<ListingDetails />} />
           <Route path="/login" element={<Login />} />

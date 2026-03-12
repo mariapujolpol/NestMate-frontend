@@ -1,7 +1,10 @@
 .footer {
   margin-top: auto;
   background-color: #f8f6f2;
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+
+  border-top: 1px solid rgba(24, 50, 45, 0.06);
+  box-shadow: 0 -4px 18px rgba(0,0,0,0.03);
+
   padding: 0 2rem;
 }
 
@@ -9,7 +12,7 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  min-height: 72px;
+  min-height: 84px;
 
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -73,7 +76,13 @@
     gap: 0.8rem;
   }
 
-  .footer-logo,
+  .footer-logo {
+  transition: transform .2s ease;
+}
+
+.footer-logo:hover {
+  transform: translateY(-1px);
+}
   .footer-copy,
   .footer-links {
     justify-self: start;
@@ -83,4 +92,21 @@
     gap: 1.2rem;
     flex-wrap: wrap;
   }
+}
+
+/* FOOTER PILLS (same style as navbar hover) */
+
+.footer-pill {
+  padding: 0.45rem 0.9rem;
+  border-radius: 20px;
+  text-decoration: none;
+  color: #355b54;
+  font-weight: 500;
+  transition: all 0.25s ease;
+}
+
+.footer-pill:hover {
+  background-color: rgba(231, 128, 89, 0.12);
+  color: #e78059;
+  transform: translateY(-1px);
 }

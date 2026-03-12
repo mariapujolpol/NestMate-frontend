@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import { getAllListings } from "../services/listings.service";
 import Spinner from "../components/Spinner";
@@ -12,6 +12,7 @@ function Listings() {
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [favoriteMessage, setFavoriteMessage] = useState(null);
+  const [favoriteTimeout, setFavoriteTimeout] = useState(null);
 
   const [filters, setFilters] = useState({
     city: "",
@@ -53,20 +54,41 @@ function Listings() {
     }
   }, [location.search]);
 
-  const handleAddFavorite = async (listingId) => {
-    try {
-      await addFavorite(listingId);
+const handleAddFavorite = async (listingId) => {
+  if (favoriteTimeout) {
+    clearTimeout(favoriteTimeout);
+  }
 
-      setFavoriteMessage(listingId);
+  try {
+    await addFavorite(listingId);
 
-      setTimeout(() => {
-        setFavoriteMessage(null);
-      }, 2500);
-    } catch (error) {
-      console.log(error);
-      alert("Failed to add listing to favorites.");
-    }
-  };
+    setFavoriteMessage({
+      id: listingId,
+      type: "success",
+      text: "Added to favorites ❤️",
+    });
+
+    const timeout = setTimeout(() => {
+      setFavoriteMessage(null);
+    }, 2500);
+
+    setFavoriteTimeout(timeout);
+  } catch (error) {
+    console.log(error);
+
+    setFavoriteMessage({
+      id: listingId,
+      type: "error",
+      text: "🔒 Login required",
+    });
+
+    const timeout = setTimeout(() => {
+      setFavoriteMessage(null);
+    }, 2500);
+
+    setFavoriteTimeout(timeout);
+  }
+};
 
   const handleFilterChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -206,22 +228,24 @@ function Listings() {
       </div>
 
       <div className="listings-grid">
-        {sortedListings.map((listing) => {
-          return (
-            <div key={listing._id} className="listing-card-wrapper">
-              <ListingCard
-                listing={listing}
-                onFavoriteClick={handleAddFavorite}
-                favoriteIcon="♡"
-              />
+  {sortedListings.map((listing) => {
+    return (
+      <div key={listing._id} className="listing-card-wrapper">
+        <ListingCard
+          listing={listing}
+          onFavoriteClick={handleAddFavorite}
+          favoriteIcon="♡"
+        />
 
-              {favoriteMessage === listing._id && (
-                <div className="favorite-popup">❤️ Added to favorites</div>
-              )}
-            </div>
-          );
-        })}
+        {favoriteMessage?.id === listing._id && (
+          <div className={`favorite-popup ${favoriteMessage.type}`}>
+            {favoriteMessage.text}
+          </div>
+        )}
       </div>
+    );
+  })}
+</div>
     </div>
   );
 }

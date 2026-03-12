@@ -108,16 +108,32 @@
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
+  background: #edf3ef;
+  color: #18322d
+}
+
+.listing-details-btn:hover {
+  background: linear-gradient(135deg, #e78059, #dca74d);
+  color: white;
 }
 
 .listing-details-btn.primary {
-  background: linear-gradient(135deg, #e78059, #dca74d);
-  color: white;
+    background: #edf3ef;
+  color: #18322d
 }
 
 .listing-details-btn.secondary {
   background: #edf3ef;
   color: #18322d;
+}
+
+.listing-details-btn.primary:hover {
+  background: linear-gradient(135deg, #e78059, #dca74d);
+  color: white;
+}
+.listing-details-btn.secondary:hover {
+  background: linear-gradient(135deg, #e78059, #dca74d);
+  color: white;
 }
 
 .listing-details-description h2 {

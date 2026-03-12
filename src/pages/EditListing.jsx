@@ -191,6 +191,16 @@ function EditListing() {
           {errorMessage && <p className="edit-listing-error">{errorMessage}</p>}
 
           <div className="edit-listing-actions">
+             <button
+              type="button"
+              className="edit-listing-btn-secondary"
+              onClick={() => navigate("/my-listings")}
+            >
+              Cancel
+            </button>
+            <div> 
+           </div>
+
             <button
               type="submit"
               className="edit-listing-btn"

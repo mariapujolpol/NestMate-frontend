@@ -43,3 +43,39 @@
     opacity: 0;
   }
 }
+
+.favorites-page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.favorites-page h1 {
+  font-size: 3rem;
+  margin-bottom: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.favorites-empty {
+  font-size: 1.25rem;
+  color: #555;
+}
+
+.favorites-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 992px) {
+  .favorites-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .favorites-grid {
+    grid-template-columns: 1fr;
+  }
+}
