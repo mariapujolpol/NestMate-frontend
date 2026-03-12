@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getMyListings, deleteListing } from "../services/listings.service";
 import { Link } from "react-router-dom";
+import Spinner from "../components/Spinner";
 import "../css/MyListings.css";
 
 function MyListings() {
@@ -46,7 +47,7 @@ function MyListings() {
   };
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Spinner />;
   }
 
   if (errorMessage) {

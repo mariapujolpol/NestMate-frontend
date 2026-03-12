@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { myProfile, getProfile } from "../services/users.service";
 import { getMyListings } from "../services/listings.service";
+import Spinner from "../components/Spinner";
 import "../css/Profile.css";
-
 
 function Profile() {
   const { userId } = useParams();
@@ -52,7 +52,7 @@ function Profile() {
     navigate("/my-listings");
   };
 
-  if (loading) return <p className="profile-loading">Loading...</p>;
+  if (loading) return <Spinner />;
   if (!profile) return <p className="profile-loading">Profile not found.</p>;
 
   const cleanlinessLabels = {
@@ -79,6 +79,7 @@ function Profile() {
             ⚙️ Edit
           </button>
         )}
+
         <div className="profile-header">
           <img
             src={profile.photoUrl || "/avatar.png"}
@@ -135,12 +136,15 @@ function Profile() {
                 <strong>Email:</strong>{" "}
                 {isOwnProfile ? profile.email : "Private"}
               </p>
+
               <p>
                 <strong>City:</strong> {profile.city || "N/A"}
               </p>
+
               <p>
                 <strong>Age:</strong> {profile.age || "N/A"}
               </p>
+
               <p>
                 <strong>Cleanliness:</strong>{" "}
                 {cleanlinessLabels[profile.cleanliness] || "N/A"}
@@ -150,9 +154,11 @@ function Profile() {
                 <strong>Noise level:</strong>{" "}
                 {noiseLevelLabels[profile.noiseLevel] || "N/A"}
               </p>
+
               <p>
                 <strong>Pets:</strong> {profile.pets ? "Yes" : "No"}
               </p>
+
               <p>
                 <strong>Smoker:</strong> {profile.smoker ? "Yes" : "No"}
               </p>

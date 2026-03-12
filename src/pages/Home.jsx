@@ -4,11 +4,13 @@ import heroImage from "../assets/hero-image.jpg";
 import { useEffect, useState, useContext } from "react";
 import { getAllListings } from "../services/listings.service";
 import ListingCard from "../components/ListingCard";
+import Spinner from "../components/Spinner";
 import { AuthContext } from "../context/auth.context";
 
 function HomePage() {
   const [featuredListings, setFeaturedListings] = useState([]);
   const [searchCity, setSearchCity] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const { user } = useContext(AuthContext);
 
@@ -22,6 +24,8 @@ function HomePage() {
         setFeaturedListings(shuffled.slice(0, 3));
       } catch (error) {
         console.log("Error fetching listings:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
@@ -33,6 +37,8 @@ function HomePage() {
 
     navigate(`/listings?city=${searchCity}`);
   };
+
+  if (isLoading) return <Spinner />;
 
   return (
     <div className="homepage">

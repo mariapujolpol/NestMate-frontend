@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getListingById, updateListing } from "../services/listings.service";
+import Spinner from "../components/Spinner";
 import "../css/EditListing.css";
 
 function EditListing() {
@@ -77,7 +78,7 @@ function EditListing() {
     }
   };
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <Spinner />;
   if (errorMessage && !formData.title) return <p>{errorMessage}</p>;
 
   return (
@@ -191,15 +192,13 @@ function EditListing() {
           {errorMessage && <p className="edit-listing-error">{errorMessage}</p>}
 
           <div className="edit-listing-actions">
-             <button
+            <button
               type="button"
               className="edit-listing-btn-secondary"
               onClick={() => navigate("/my-listings")}
             >
               Cancel
             </button>
-            <div> 
-           </div>
 
             <button
               type="submit"

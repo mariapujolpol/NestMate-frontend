@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createListing } from "../services/listings.service";
+import Spinner from "../components/Spinner";
 import "../css/CreateListing.css";
 
 function CreateListing() {
   const navigate = useNavigate();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const [formData, setFormData] = useState({
     title: "",
@@ -31,6 +34,8 @@ function CreateListing() {
     e.preventDefault();
 
     try {
+      setIsLoading(true);
+
       const listingData = {
         ...formData,
         price: Number(formData.price),
@@ -43,8 +48,14 @@ function CreateListing() {
       navigate("/listings");
     } catch (error) {
       console.log("Error creating listing:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <div className="create-listing-page">
@@ -116,6 +127,7 @@ function CreateListing() {
                 <option value="5">Very Poor</option>
               </select>
             </div>
+
             <div className="form-group">
               <label>Noise Level</label>
               <select
@@ -146,6 +158,7 @@ function CreateListing() {
 
           <div className="form-group">
             <label>Preferences</label>
+
             <div className="checkbox-group">
               <label className="checkbox-item">
                 <input

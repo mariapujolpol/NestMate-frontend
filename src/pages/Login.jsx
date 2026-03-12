@@ -2,6 +2,7 @@ import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/auth.context";
 import service from "../services/api";
+import Spinner from "../components/Spinner";
 import "../css/Login.css";
 import { Link } from "react-router-dom";
 
@@ -46,6 +47,8 @@ function Login() {
       setIsSubmitting(false);
     }
   };
+
+  if (isSubmitting) return <Spinner />;
 
   return (
     <div className="login-page">

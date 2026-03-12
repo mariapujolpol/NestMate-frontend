@@ -5,6 +5,7 @@ import {
   getMessagesByConversation,
   sendMessage,
 } from "../services/messages.service";
+import Spinner from "../components/Spinner";
 import "../css/ConversationsDetails.css";
 
 function ConversationDetails() {
@@ -15,6 +16,7 @@ function ConversationDetails() {
   const [text, setText] = useState("");
   const [conversation, setConversation] = useState(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const myUserId = user?.payload?._id;
 
@@ -35,6 +37,7 @@ function ConversationDetails() {
       console.log("Error fetching messages:", error);
     } finally {
       setIsRefreshing(false);
+      setIsLoading(false);
     }
   };
 
@@ -43,18 +46,22 @@ function ConversationDetails() {
   }, [conversationId]);
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  if (!text.trim()) return;
+    if (!text.trim()) return;
 
-  try {
-    await sendMessage(conversationId, { text });
-    setText("");
-    fetchMessages();
-  } catch (error) {
-    console.log("Error sending message:", error);
+    try {
+      await sendMessage(conversationId, { text });
+      setText("");
+      fetchMessages();
+    } catch (error) {
+      console.log("Error sending message:", error);
+    }
+  };
+
+  if (isLoading) {
+    return <Spinner />;
   }
-};
 
   return (
     <div className="chat-page">
