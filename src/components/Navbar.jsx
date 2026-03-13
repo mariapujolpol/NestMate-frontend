@@ -39,13 +39,21 @@ function Navbar() {
               <Link to="/favorites" className="nav-pill" onClick={closeMenu}>
                 Favorites
               </Link>
-              <Link to="/conversations" className="nav-pill" onClick={closeMenu}>
+              <Link
+                to="/conversations"
+                className="nav-pill"
+                onClick={closeMenu}
+              >
                 Inbox
               </Link>
               <Link to="/profile" className="nav-pill" onClick={closeMenu}>
                 Profile
               </Link>
-              <button type="button" onClick={handleLogout} className="nav-pill logout-btn">
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="nav-pill logout-btn"
+              >
                 Logout
               </button>
             </>
@@ -87,13 +95,21 @@ function Navbar() {
               <Link to="/favorites" className="mobile-link" onClick={closeMenu}>
                 Favorites
               </Link>
-              <Link to="/conversations" className="mobile-link" onClick={closeMenu}>
+              <Link
+                to="/conversations"
+                className="mobile-link"
+                onClick={closeMenu}
+              >
                 Inbox
               </Link>
               <Link to="/profile" className="mobile-link" onClick={closeMenu}>
                 Profile
               </Link>
-              <button type="button" onClick={handleLogout} className="mobile-link mobile-logout">
+              <button
+                type="button"
+                onClick={handleLogout}
+                className="mobile-link mobile-logout"
+              >
                 Logout
               </button>
             </>
@@ -102,7 +118,11 @@ function Navbar() {
               <Link to="/login" className="mobile-link" onClick={closeMenu}>
                 Log In
               </Link>
-              <Link to="/register" className="mobile-link mobile-primary" onClick={closeMenu}>
+              <Link
+                to="/register"
+                className="mobile-link mobile-primary"
+                onClick={closeMenu}
+              >
                 Sign Up
               </Link>
             </>
