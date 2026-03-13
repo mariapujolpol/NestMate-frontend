@@ -1,16 +1,122 @@
-# React + Vite
+# 🏡 NestMate -- Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+NestMate is a web application designed to help people find compatible
+flatmates and shared apartments. The platform allows users to browse
+listings, create profiles, communicate with potential roommates, and
+manage their own listings in a simple and intuitive interface.
 
-Currently, two official plugins are available:
+This repository contains the **frontend application** built with
+**React**, which communicates with the NestMate backend API.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+------------------------------------------------------------------------
 
-## React Compiler
+# 🚀 Live Demo
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Frontend:\
+https://nestmate-eta.vercel.app
 
-## Expanding the ESLint configuration
+Backend API:\
+https://nestmate-server.vercel.app
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+------------------------------------------------------------------------
+
+# 👩‍💻 Authors
+
+Developed during the **Ironhack Web Development Bootcamp** by:
+
+-   Mauricio Rojas Morales
+-   Maria Pol Pujol
+
+------------------------------------------------------------------------
+
+# ✨ Features
+
+-   🔐 User authentication (signup / login)
+-   👤 User profile creation and editing
+-   🏠 Create and manage apartment listings
+-   🔍 Browse available listings
+-   ❤️ Favorite listings
+-   💬 Messaging system between users
+-   📍 Filter listings by city
+-   📷 Image uploads for listings and profiles
+-   📱 Responsive design
+
+------------------------------------------------------------------------
+
+# 🛠 Tech Stack
+
+Frontend: - React - React Router - Axios - CSS - Vite
+
+Backend: - Node.js - Express - MongoDB - Mongoose
+
+Deployment: - Vercel (Frontend) - Vercel / Cloud Hosting (Backend) -
+Cloudinary (Image storage)
+
+------------------------------------------------------------------------
+
+# 📂 Project Structure
+
+src/
+
+components/ \# Reusable UI components\
+pages/ \# Main pages of the app\
+services/ \# API calls\
+context/ \# Authentication context\
+css/ \# Stylesheets\
+App.jsx
+
+------------------------------------------------------------------------
+
+# ⚙️ Installation
+
+Clone the repository:
+
+git clone https://github.com/mariapujolpol/NestMate-frontend.git
+
+Move into the project folder:
+
+cd NestMate-frontend
+
+Install dependencies:
+
+npm install
+
+Run the development server:
+
+npm run dev
+
+The app will start on:
+
+http://localhost:5173
+
+------------------------------------------------------------------------
+
+# 🔗 API Connection
+
+The frontend communicates with the NestMate backend API.
+
+Make sure the backend server is running and update the base URL if
+necessary:
+
+src/services/api.service.js
+
+Example:
+
+const API_URL = "https://nestmate-server.vercel.app/api";
+
+------------------------------------------------------------------------
+
+# 🌱 Future Improvements
+
+-   Real-time chat with WebSockets
+-   Map integration for listings
+-   Advanced filtering system
+-   Email notifications
+-   Mobile-first UI improvements
+
+------------------------------------------------------------------------
+
+# 📄 License
+
+This project was developed for educational purposes during the Ironhack
+Bootcamp.
