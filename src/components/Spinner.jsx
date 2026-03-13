@@ -15,11 +15,11 @@ function Spinner() {
       </div>
 
       <h1 className="spinner-logo">
-        <span className="logo-nest">Nest</span>
-        <span className="logo-mate">Mate</span>
+        <span className="logo-nest">nest</span>
+        <span className="logo-mate">mate</span>
       </h1>
 
-      <p className="spinner-text">Loading your next stay...</p>
+      <p className="spinner-text">Loading your next home...</p>
 
       <div className="spinner-dots">
         <span></span>
