@@ -143,11 +143,20 @@
 .edit-profile-btn.primary {
   background: linear-gradient(135deg, #e78059, #dca74d);
   color: white;
+
+}
+.edit-profile-btn.primary:hover {
+  background: linear-gradient(135deg, #e06f4b, #dca74d);
+  transform: translateY(-1px);
 }
 
 .edit-profile-btn.secondary {
   background: #edf3ef;
   color: #18322d;
+}
+.edit-profile-btn.secondary:hover {
+  background: #e0e8e3;
+  transform: translateY(-1px);
 }
 
 .edit-profile-btn:disabled {

@@ -205,10 +205,16 @@ function CreateListing() {
             </label>
           </div>
         </div>
-
         <button type="submit" className="create-listing-button">
           Create Listing
         </button>
+         <button
+            type="button"
+            className="edit-profile-btn secondary"
+            onClick={() => navigate("/profile")}
+          >
+            Cancel
+          </button>
       </form>
     </div>
   </div>

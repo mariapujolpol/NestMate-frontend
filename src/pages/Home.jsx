@@ -63,7 +63,7 @@ function HomePage() {
             </h1>
 
             <p>
-              NestMate connects you with compatible flatmates and the best
+              Nestmate connects you with compatible flatmates and the best
               shared living spaces in your city. No stress, just home.
             </p>
 

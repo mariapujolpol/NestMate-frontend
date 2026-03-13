@@ -105,7 +105,7 @@
 .create-listing-button {
   margin-top: 10px;
   border: none;
-  background: #7c5cff;
+  background: linear-gradient(135deg, #e78059, #dca74d);
   color: white;
   padding: 14px 18px;
   border-radius: 12px;

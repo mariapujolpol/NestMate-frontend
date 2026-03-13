@@ -43,14 +43,14 @@ function ListingDetails() {
       }, 2500);
     } catch (error) {
       console.log(error);
-      alert("Failed to add listing to favorites.");
+      alert("You need to be logged in to add a listing to favorites.");
     }
   };
 
   const handleContactOwner = async () => {
     try {
       if (!user) {
-        alert("You need to log in first.");
+        alert("You need to be logged in to contact an owner.");
         return;
       }
 

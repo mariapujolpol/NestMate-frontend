@@ -64,4 +64,5 @@
 .my-listing-actions a:hover {
   background: linear-gradient(135deg, #e78059, #dca74d);
   color: white;
+  transform: translateY(-1px);
 }
